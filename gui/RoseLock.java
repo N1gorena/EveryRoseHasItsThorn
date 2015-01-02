@@ -31,11 +31,11 @@ public class RoseLock extends JPanel {
 		int WIDTH = this.background.getWidth(null);
 		int HEIGHT = this.background.getHeight(null);
 		
-		JButton Wishes = new JButton("Merry Christmas");
+		Greetings wishes = new Greetings("Merry Christmas");
 		
-		this.add(Wishes);
-		Wishes.setBounds(WIDTH/4  + 200, HEIGHT/4 + 500, 180, 70);;
-		Wishes.repaint();
+		this.add(wishes);
+		wishes.setBounds(WIDTH/4  + 200, HEIGHT/4 + 500, 180, 70);;
+		wishes.repaint();
 		
 		JButton QnA = new JButton("Q And A Unlocker");
 		this.add(QnA);
@@ -49,6 +49,7 @@ public class RoseLock extends JPanel {
 		//TODO generate background foreground distinction
 		Polygon p = generateLockShape("NJGUnoBox");
 		
+		/*
 		g.drawPolygon(p);
 		g.setColor(Color.RED);
 		g.fillPolygon(p);
@@ -58,7 +59,7 @@ public class RoseLock extends JPanel {
 		g.drawPolygon(p2);
 		g.setColor(Color.WHITE);
 		g.fillPolygon(p2);
-		
+		*/
 		
 		
 	}
