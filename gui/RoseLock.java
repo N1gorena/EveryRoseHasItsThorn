@@ -1,8 +1,10 @@
 package gui;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Polygon;
 
@@ -21,15 +23,17 @@ public class RoseLock extends JPanel {
 		this.setLayout(null);
 	}
 	
-	
 	public void paintComponent(Graphics g){
 		g.drawImage(background, 0, 0, null);
 		//TODO generate filled in triangle to place widgets on
 		Polygon p = generateLockShape("Triangle");
 		
-		g.drawPolygon(p);
-		g.setColor(Color.WHITE);
-		g.fillPolygon(p);
+		//g.drawPolygon(p);
+		//g.setColor(Color.WHITE);
+		//g.fillPolygon(p);
+		Graphics2D gPrime = (Graphics2D)g;
+		
+		
 		
 		
 	}
