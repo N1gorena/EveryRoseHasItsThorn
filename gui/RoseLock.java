@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 
 public class RoseLock extends JPanel {
 	private Image background;
+	private int messageXPos;
 	public RoseLock(String imagePath){
 		this.background = new ImageIcon("images/"+ imagePath).getImage();
 		Dimension size = new Dimension(this.background.getWidth(null), this.background.getHeight(null));
