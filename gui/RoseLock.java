@@ -5,10 +5,16 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Polygon;
+import java.awt.Rectangle;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class RoseLock extends JPanel {
@@ -21,6 +27,16 @@ public class RoseLock extends JPanel {
 		this.setMaximumSize(size);
 		this.setSize(size);
 		this.setLayout(null);
+		
+		JButton testBitch = new JButton("Bitch");
+		
+	
+		
+		this.add(testBitch);
+		testBitch.setBounds(0, 0, 200, 200);;
+		testBitch.repaint();
+			
+		
 	}
 	
 	public void paintComponent(Graphics g){

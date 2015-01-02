@@ -24,7 +24,7 @@ public class MainFrame extends JFrame {
 		hack.setSize(hack.width + 6, hack.height + 26);
 		this.setSize(hack);
 		this.setLocation( ((screenDim.width/2) - this.getWidth()/2) , ((screenDim.height/2) - this.getHeight()/2) );
-
+		this.setResizable(false);
 	}
 
 }
