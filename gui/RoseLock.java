@@ -25,14 +25,18 @@ public class RoseLock extends JPanel {
 	
 	public void paintComponent(Graphics g){
 		g.drawImage(background, 0, 0, null);
-		//TODO generate filled in triangle to place widgets on
-		Polygon p = generateLockShape("Triangle");
+		//TODO generate background foreground distinction
+		Polygon p = generateLockShape("NJGUnoBox");
 		
-		//g.drawPolygon(p);
-		//g.setColor(Color.WHITE);
-		//g.fillPolygon(p);
-		Graphics2D gPrime = (Graphics2D)g;
+		g.drawPolygon(p);
+		g.setColor(Color.RED);
+		g.fillPolygon(p);
 		
+		Polygon p2 = generateLockShape("NJGDosBox");
+		
+		g.drawPolygon(p2);
+		g.setColor(Color.WHITE);
+		g.fillPolygon(p2);
 		
 		
 		
@@ -40,18 +44,30 @@ public class RoseLock extends JPanel {
 	
 	public Polygon generateLockShape(String shape){
 		switch(shape){
-		case "Triangle":
-			//Hacked out my desired Triangle
+		case "NJGUnoBox":
+			//Hacking boxes
 			Polygon p = new Polygon();
 			int WIDTH = this.background.getWidth(null);
 			int HEIGHT = this.background.getHeight(null);
-			p.addPoint(WIDTH/4, HEIGHT/4 + 60);
-			p.addPoint( (WIDTH/4) , HEIGHT);
-			p.addPoint(WIDTH, HEIGHT);
-			p.addPoint(WIDTH + 400 , HEIGHT + 300);
+			p.addPoint(WIDTH/4  + 200, HEIGHT/4 + 500);
+			p.addPoint( (WIDTH/4) + 200 , HEIGHT/4 + 570);
+			p.addPoint(WIDTH/4  + 380, HEIGHT/4 + 500);
+			p.addPoint( (WIDTH/4) + 380 , HEIGHT/4 + 570);
 			
 			
 			return p;
+		case "NJGDosBox":
+			//Hacking boxes
+			Polygon p2 = new Polygon();
+			int WIDTHD = this.background.getWidth(null);
+			int HEIGHTD = this.background.getHeight(null);
+			p2.addPoint(WIDTHD/4  + 150, HEIGHTD/4 + 580);
+			p2.addPoint( (WIDTHD/4) + 150 , HEIGHTD/4 + 650);
+			p2.addPoint(WIDTHD/4  + 430, HEIGHTD/4 + 580);
+			p2.addPoint( (WIDTHD/4) + 430 , HEIGHTD/4 + 650);
+			
+			
+			return p2;
 		default:
 			Polygon pee = new Polygon();
 			return pee;
