@@ -31,7 +31,7 @@ public class RoseLock extends JPanel {
 		int WIDTH = this.background.getWidth(null);
 		int HEIGHT = this.background.getHeight(null);
 		
-		Greetings wishes = new Greetings("Merry Christmas");
+		Greetings wishes = new Greetings();
 		
 		this.add(wishes);
 		wishes.setBounds(WIDTH/4  + 200, HEIGHT/4 + 500, 180, 70);;
