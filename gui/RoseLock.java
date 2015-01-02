@@ -19,7 +19,6 @@ import javax.swing.JPanel;
 
 public class RoseLock extends JPanel {
 	private Image background;
-	private int messageXPos;
 	public RoseLock(String imagePath){
 		this.background = new ImageIcon("images/"+ imagePath).getImage();
 		Dimension size = new Dimension(this.background.getWidth(null), this.background.getHeight(null));
@@ -29,13 +28,18 @@ public class RoseLock extends JPanel {
 		this.setSize(size);
 		this.setLayout(null);
 		
-		JButton testBitch = new JButton("Bitch");
+		int WIDTH = this.background.getWidth(null);
+		int HEIGHT = this.background.getHeight(null);
 		
-	
+		JButton Wishes = new JButton("Merry Christmas");
 		
-		this.add(testBitch);
-		testBitch.setBounds(0, 0, 200, 200);;
-		testBitch.repaint();
+		this.add(Wishes);
+		Wishes.setBounds(WIDTH/4  + 200, HEIGHT/4 + 500, 180, 70);;
+		Wishes.repaint();
+		
+		JButton QnA = new JButton("Q And A Unlocker");
+		this.add(QnA);
+		QnA.setBounds(WIDTH/4  + 150, HEIGHT/4 + 580, 280, 70);
 			
 		
 	}
