@@ -47,11 +47,16 @@ public class SecurityQuestion extends JPanel {
 		public AnswerLine(JComboBox<String> answers, JButton submit, String[] givenAnswers){
 			this.setLayout(new BoxLayout(this,BoxLayout.X_AXIS));
 			this.setBackground(Color.BLACK);
+			
 			for(String s : givenAnswers){
 				answers.addItem(s);
 			}
-			
+			answers.setBackground(Color.BLACK);
+			answers.setForeground(Color.WHITE);
 			this.add(answers);
+			
+			submit.setBackground(Color.BLACK);
+			submit.setForeground(Color.BLUE);
 			this.add(submit);
 		}
 	}
