@@ -14,13 +14,14 @@ public class Greetings extends JPanel {
 	private JLabel christmas;
 	private JLabel newYear;
 	
-	public Greetings(){
+	public Greetings(){		
+		this.setBackground(Color.black);
+		this.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		
 		this.greeting = new JLabel("Hi Rose!");
 		this.christmas = new JLabel("Merry Christmas!");
 		this.newYear = new JLabel("And Happy New Year!");
-				
-		this.setBackground(Color.black);
-		this.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
 		
 		greeting.setForeground(Color.RED);
 		christmas.setForeground(Color.WHITE);
@@ -30,16 +31,12 @@ public class Greetings extends JPanel {
 		christmas.setFont(christmas.getFont().deriveFont(16.0f));
 		newYear.setFont(newYear.getFont().deriveFont(16.0f));
 		
-		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		
-
 		greeting.setAlignmentY(CENTER_ALIGNMENT);
 		greeting.setAlignmentX(CENTER_ALIGNMENT);
 		christmas.setAlignmentY(CENTER_ALIGNMENT);
 		christmas.setAlignmentX(CENTER_ALIGNMENT);
 		newYear.setAlignmentY(CENTER_ALIGNMENT);
 		newYear.setAlignmentX(CENTER_ALIGNMENT);
-		
 		
 		this.add(greeting);
 		this.add(christmas);

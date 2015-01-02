@@ -37,7 +37,10 @@ public class RoseLock extends JPanel {
 		wishes.setBounds(WIDTH/4  + 200, HEIGHT/4 + 500, 180, 70);;
 		wishes.repaint();
 		
-		JButton QnA = new JButton("Q And A Unlocker");
+		
+		String question = "What is a surprising part of your ancestry?";
+		String[] answers = {"Some Kinda Swedish?","German?","Japanese"};
+		SecurityQuestion QnA = new SecurityQuestion(question, answers);
 		this.add(QnA);
 		QnA.setBounds(WIDTH/4  + 150, HEIGHT/4 + 580, 280, 70);
 			
@@ -96,4 +99,6 @@ public class RoseLock extends JPanel {
 		}
 		
 	}
+	
+	
 }
