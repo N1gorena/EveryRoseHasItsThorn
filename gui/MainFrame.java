@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.GraphicsConfiguration;
 import java.awt.HeadlessException;
@@ -25,6 +26,7 @@ public class MainFrame extends JFrame {
 		this.setSize(hack);
 		this.setLocation( ((screenDim.width/2) - this.getWidth()/2) , ((screenDim.height/2) - this.getHeight()/2) );
 		this.setResizable(false);
+		this.setLayout(new CardLayout());
 	}
 
 }
