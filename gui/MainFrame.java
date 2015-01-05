@@ -1,6 +1,7 @@
 package gui;
 
 import gui.roseLock.RoseLock;
+import gui.tromboneScreen.TromboneScreen;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -34,7 +35,7 @@ public class MainFrame extends JFrame {
 		this.setSize(hack);
 		this.setLocation( ((screenDim.width/2) - this.getWidth()/2) , ((screenDim.height/2) - this.getHeight()/2) );
 		
-		JPanel testPane = new JPanel();
+		TromboneScreen testPane = new TromboneScreen(this.getContentPane());
 		this.add(testPane,"TEST");
 	}
 
