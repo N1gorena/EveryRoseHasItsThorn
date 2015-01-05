@@ -1,4 +1,6 @@
-package gui;
+package gui.roseLock;
+
+import gui.MainFrame;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
