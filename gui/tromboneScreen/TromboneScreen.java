@@ -37,6 +37,7 @@ public class TromboneScreen extends JPanel {
 		trombGUIConstraints.weightx = 0.75;
 		trombGUIConstraints.weighty = 0.75;
 		trombGUIConstraints.anchor = GridBagConstraints.FIRST_LINE_START;
+		trombGUIConstraints.fill = GridBagConstraints.BOTH;
 		JButton testButton = new JButton("Fuck");
 		testButton.setSize(MainFrame.screenDim);
 		this.add(testButton, trombGUIConstraints);
@@ -49,6 +50,7 @@ public class TromboneScreen extends JPanel {
 		controlsConstraints.weightx = 0.25;
 		controlsConstraints.weighty = 0.75;
 		controlsConstraints.anchor = GridBagConstraints.FIRST_LINE_START;
+		controlsConstraints.fill = GridBagConstraints.BOTH;
 		JButton testButton2 = new JButton("Fuck");
 		testButton2.setSize(MainFrame.screenDim);
 		this.add(testButton2, controlsConstraints);
@@ -60,6 +62,8 @@ public class TromboneScreen extends JPanel {
 		Constraints.weightx = 1.0;
 		Constraints.weighty = 0.25;
 		Constraints.anchor = GridBagConstraints.FIRST_LINE_START;
+		Constraints.fill = GridBagConstraints.BOTH;
+		Constraints.gridwidth = 2;
 		JButton testButton3 = new JButton("Fuck");
 		testButton3.setSize(MainFrame.screenDim);
 		this.add(testButton3, Constraints);
