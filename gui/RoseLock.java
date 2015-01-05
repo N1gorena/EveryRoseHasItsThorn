@@ -11,15 +11,18 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Polygon;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class RoseLock extends JPanel {
+public class RoseLock extends JPanel{
 	private Image background;
-	public RoseLock(String imagePath){
+	private MainFrame mainFrame;
+	public RoseLock(String imagePath, MainFrame mainFrame){
 		this.background = new ImageIcon("images/"+ imagePath).getImage();
 		Dimension size = new Dimension(this.background.getWidth(null), this.background.getHeight(null));
 		this.setPreferredSize(size);
@@ -40,10 +43,11 @@ public class RoseLock extends JPanel {
 		
 		String question = "What is a surprising part of your ancestry?";
 		String[] answers = {"Some Kinda Swedish?","German?","Japanese"};
-		SecurityQuestion QnA = new SecurityQuestion(question, answers);
+		SecurityQuestion QnA = new SecurityQuestion(question, answers, this);
 		this.add(QnA);
 		QnA.setBounds(WIDTH/4  + 150, HEIGHT/4 + 580, 280, 70);
-			
+		
+		this.mainFrame = mainFrame;
 		
 	}
 	
@@ -99,6 +103,13 @@ public class RoseLock extends JPanel {
 		}
 		
 	}
+
+	public void unlock() {
+		mainFrame.cardSwap("main");
+		
+	}
+	
+	
 	
 	
 }
