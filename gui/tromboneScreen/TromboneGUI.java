@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 
 import trombone.Trombone;
 
+import java.lang.Math.*;
+
 import javax.media.opengl.*;
 import javax.media.opengl.awt.GLCanvas;
 import javax.media.opengl.awt.GLJPanel;
@@ -62,7 +64,7 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 	    gl.glLoadIdentity();  // reset the model-view matrix
 	    
 	      // ----- Your OpenGL rendering code here (Render a white triangle for testing) -----
-	    gl.glTranslatef(0.0f, 0.0f, -1.0f); // translate into the screen
+	    gl.glTranslatef(0.0f, 0.0f, -2.0f); // translate into the screen
 	    gl.glBegin(GL.GL_LINES); // draw using triangles
 	    //Positive Axes
 	    gl.glVertex3d(0, 0, 0);
@@ -78,9 +80,12 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 	    gl.glVertex3d(0, -1, 0);
 	    gl.glVertex3d(0, 0, 0);
 	    gl.glVertex3d(0, 0, -1);
-	    
 	    gl.glEnd();
 	    
+	    gl.glBegin(GL.GL_LINE_LOOP);
+	    drawCircle(gl);
+	    
+	    gl.glEnd();
 	   /* gl.glColor3f(0.0f, 2.5f, 0.0f);
 	    gl.glVertex3d(0.0f, 1.0f, 0.0f);
 	    gl.glColor3f(1.0f, 0.0f, 0.0f);
@@ -130,6 +135,18 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 	      // Enable the model-view transform
 	      gl.glMatrixMode(GL_MODELVIEW);
 	      gl.glLoadIdentity(); // reset
+		
+	}
+	
+	private void drawCircle(GL2 brush){
+		int radius = 1;
+		double pi = Math.PI;
+		
+		for(double ini = 0.0f ; ini < 2*pi ; ini+=0.1){
+			brush.glVertex3d(radius*Math.cos(ini), radius * Math.sin(ini), 0.0f);
+		}
+		
+		
 		
 	}
 
