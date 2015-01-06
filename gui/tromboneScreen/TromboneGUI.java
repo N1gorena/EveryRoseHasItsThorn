@@ -64,7 +64,10 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 	    gl.glLoadIdentity();  // reset the model-view matrix
 	    
 	      // ----- Your OpenGL rendering code here (Render a white triangle for testing) -----
+	    //Camera
 	    gl.glTranslatef(0.0f, 0.0f, -2.0f); // translate into the screen
+	    gl.glRotatef();
+	    //Brush
 	    gl.glBegin(GL.GL_LINES); // draw using triangles
 	    //Positive Axes
 	    gl.glVertex3d(0, 0, 0);
@@ -84,7 +87,6 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 	    
 	    gl.glBegin(GL.GL_LINE_LOOP);
 	    drawCircle(gl);
-	    
 	    gl.glEnd();
 	   /* gl.glColor3f(0.0f, 2.5f, 0.0f);
 	    gl.glVertex3d(0.0f, 1.0f, 0.0f);
