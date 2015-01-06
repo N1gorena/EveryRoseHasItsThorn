@@ -9,6 +9,8 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
+import javax.media.opengl.GLCapabilities;
+import javax.media.opengl.GLProfile;
 import javax.sound.midi.MidiUnavailableException;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -30,7 +32,9 @@ public class TromboneScreen extends JPanel {
 			e.printStackTrace();
 		}
 		
-		TromboneGUI tromboneGUI = new TromboneGUI(RTrombone);
+		GLProfile glprofile = GLProfile.getDefault();
+		GLCapabilities glcapabilities = new GLCapabilities(glprofile);
+		TromboneGUI tromboneGUI = new TromboneGUI(RTrombone,glcapabilities);
 		GridBagConstraints trombGUIConstraints = new GridBagConstraints();
 		trombGUIConstraints.gridx = 0;
 		trombGUIConstraints.gridy = 0;
@@ -38,9 +42,9 @@ public class TromboneScreen extends JPanel {
 		trombGUIConstraints.weighty = 0.75;
 		trombGUIConstraints.anchor = GridBagConstraints.FIRST_LINE_START;
 		trombGUIConstraints.fill = GridBagConstraints.BOTH;
-		JButton testButton = new JButton("Fuck");
-		testButton.setSize(MainFrame.screenDim);
-		this.add(testButton, trombGUIConstraints);
+		//JButton testButton = new JButton("Fuck");
+		tromboneGUI.setSize(MainFrame.screenDim);
+		this.add(tromboneGUI, trombGUIConstraints);
 		
 		
 		//ControlsGUI controls = new ControlsGUI();
@@ -64,6 +68,7 @@ public class TromboneScreen extends JPanel {
 		Constraints.anchor = GridBagConstraints.FIRST_LINE_START;
 		Constraints.fill = GridBagConstraints.BOTH;
 		Constraints.gridwidth = 2;
+		
 		JButton testButton3 = new JButton("Fuck");
 		testButton3.setSize(MainFrame.screenDim);
 		this.add(testButton3, Constraints);
