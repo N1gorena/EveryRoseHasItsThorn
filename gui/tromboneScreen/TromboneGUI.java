@@ -163,7 +163,10 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 		brush.glEnd();
 	}
 	
-	//Assuming Quad Strip
+	//Assuming Quads
+	//Takes in a sideLength, a "brush", the top left coordinate in x,y,z and enums for orientation.
+	//Square is drawn expanding in leading enum direction by amount=sideLength,
+	//and then expanding in second enum direction by amount=sideLength;
 	private void createSquare(double sideLength, GL2 gl, double TLx, double TLy, double TLz, Axis expansion1, Axis expansion2){
 	    gl.glBegin(GL2.GL_QUADS);
 	    gl.glVertex3d(TLx,TLy,TLz);
