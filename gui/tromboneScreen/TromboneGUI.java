@@ -23,6 +23,8 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 	private static final int FPS = 60;
 	private FPSAnimator animator; 
 	private GLU glu;
+	private static enum Axis{incX,decX,incY,decY,incZ,decZ};
+	
 	public TromboneGUI(Trombone Tromby, GLCapabilities glcapabilities){
 		super(glcapabilities);
 		if(Tromby == null){
@@ -68,33 +70,36 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 	    gl.glTranslatef(0.0f, 0.0f, -2.5f); // translate into the screen
 	    //gl.glRotatef(90,0.0f,0.0f,-1.0f);
 	    //Brush
-	    gl.glBegin(GL.GL_LINES); // draw using triangles
-	    //Positive Axes 
-	    gl.glColor3d(0.0f, 0.0f, 1.0f);
-	    gl.glVertex3d(0, 0, 0);
-	    gl.glVertex3d(1.8f, 0, 0);
-	    gl.glColor3d(1.0f, 0.0f, 0.0f);
-	    gl.glVertex3d(0, 0, 0);
-	    gl.glVertex3d(0, 1.2f, 0);
-	    gl.glColor3d(0.0f, 1.0f, 0.0f);
-	    gl.glVertex3d(0, 0, 0);
-	    gl.glVertex3d(0, 0, 1);
-	   
-	    //Neg Axes
-	    gl.glColor3d(0.0f, 0.0f, 1.0f);
-	    gl.glVertex3d(0, 0, 0);
-	    gl.glVertex3d(-1.8f, 0, 0);
-	    gl.glColor3d(1.0f, 0.0f, 0.0f);
-	    gl.glVertex3d(0, 0, 0);
-	    gl.glVertex3d(0, -1.2f, 0);
-	    gl.glColor3d(0.0f, 1.0f, 0.0f);
-	    gl.glVertex3d(0, 0, 0);
-	    gl.glVertex3d(0, 0, -1);
-	    gl.glEnd();
-	    
-	    gl.glBegin(GL.GL_LINE_LOOP);
-	    drawCircle(gl);
-	    gl.glEnd();
+	    	//Orienting Axes
+			    gl.glBegin(GL.GL_LINES); // draw using triangles
+			    //Positive Axes 
+			    gl.glColor3d(0.0f, 0.0f, 1.0f);
+			    gl.glVertex3d(0, 0, 0);
+			    gl.glVertex3d(1.8f, 0, 0);
+			    gl.glColor3d(1.0f, 0.0f, 0.0f);
+			    gl.glVertex3d(0, 0, 0);
+			    gl.glVertex3d(0, 1.2f, 0);
+			    gl.glColor3d(0.0f, 1.0f, 0.0f);
+			    gl.glVertex3d(0, 0, 0);
+			    gl.glVertex3d(0, 0, 1);
+			    //Neg Axes
+			    gl.glColor3d(0.0f, 0.0f, 1.0f);
+			    gl.glVertex3d(0, 0, 0);
+			    gl.glVertex3d(-1.8f, 0, 0);
+			    gl.glColor3d(1.0f, 0.0f, 0.0f);
+			    gl.glVertex3d(0, 0, 0);
+			    gl.glVertex3d(0, -1.2f, 0);
+			    gl.glColor3d(0.0f, 1.0f, 0.0f);
+			    gl.glVertex3d(0, 0, 0);
+			    gl.glVertex3d(0, 0, -1);
+			    gl.glEnd();
+			//Background Done    
+		    //Object Trombone
+			double sideLength = 0.6f;
+			createSquare(sideLength, gl, -0.6f, 0.4f, 0.0f,TromboneGUI.Axis.incX,TromboneGUI.Axis.decY);  
+		    gl.glBegin(GL.GL_LINE_LOOP);
+			drawCircle(gl);
+	    //
 	   /* gl.glColor3f(0.0f, 2.5f, 0.0f);
 	    gl.glVertex3d(0.0f, 1.0f, 0.0f);
 	    gl.glColor3f(1.0f, 0.0f, 0.0f);
@@ -150,13 +155,67 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 	private void drawCircle(GL2 brush){
 		int radius = 1;
 		double pi = Math.PI;
+		//brush.glBegin(GL.GL_LINES);
 		
 		for(double ini = 0.0f ; ini < 2*pi ; ini+=0.1){
 			brush.glVertex3d(radius*Math.cos(ini), radius * Math.sin(ini), 0.0f);
 		}
-		
-		
-		
+		brush.glEnd();
 	}
-
+	
+	//Assuming Quad Strip
+	private void createSquare(double sideLength, GL2 gl, double TLx, double TLy, double TLz, Axis expansion1, Axis expansion2){
+	    gl.glBegin(GL2.GL_QUADS);
+	    gl.glVertex3d(TLx,TLy,TLz);
+	    
+	    double x = TLx;
+	    double y = TLy;
+	    double z = TLz;
+	    switch(expansion1){
+	    	case incX:
+    			x = TLx + sideLength;
+    			gl.glVertex3d(x, TLy, TLz); 
+    			break;
+	    	case decX:
+	    		x = TLx - sideLength;
+    			gl.glVertex3d(x, TLy, TLz); 
+    			break;
+	    	case incY:
+	    		y = TLy + sideLength;
+    			gl.glVertex3d(TLx, y, TLz); 
+    			break;
+	    	case decY:
+	    		y = TLy - sideLength;
+    			gl.glVertex3d(TLx, y, TLz); 
+    			break;
+	    	case incZ:
+	    		z = TLz + sideLength;
+    			gl.glVertex3d(TLx, TLy, z); 
+    			break;
+	    	case decZ:
+	    		z = TLz - sideLength;
+    			gl.glVertex3d(TLx, TLy, z); 
+    			break;
+	    	default:System.out.println("fucked up CreateSquare");break;
+	    }
+	    switch(expansion2){
+	    	case incX:gl.glVertex3d(TLx + sideLength, y, z); break;
+	    	case decX:gl.glVertex3d(TLx - sideLength, y, z); break;
+	    	case incY:gl.glVertex3d(x, TLy + sideLength, z); break;
+	    	case decY:gl.glVertex3d(x, TLy - sideLength, z); break;
+	    	case incZ:gl.glVertex3d(x, y, TLz + sideLength); break;
+	    	case decZ:gl.glVertex3d(x, y, TLz - sideLength); break;
+	    	default:System.out.println("fucked up CreateSquare");break;
+	    }
+	    switch(expansion2){
+	    	case incX:gl.glVertex3d(TLx + sideLength, TLy, TLz); break;
+	    	case decX:gl.glVertex3d(TLx - sideLength, TLy, TLz); break;
+	    	case incY:gl.glVertex3d(TLx, TLy + sideLength, TLz); break;
+	    	case decY:gl.glVertex3d(TLx, TLy - sideLength, TLz); break;
+	    	case incZ:gl.glVertex3d(TLx, TLy, TLz + sideLength); break;
+	    	case decZ:gl.glVertex3d(TLx, TLy, TLz - sideLength); break;
+	    	default:System.out.println("fucked up CreateSquare");break;
+	    }
+	    gl.glEnd();
+	}
 }
