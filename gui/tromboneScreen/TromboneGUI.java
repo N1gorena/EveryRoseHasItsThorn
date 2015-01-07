@@ -65,22 +65,29 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 	    
 	      // ----- Your OpenGL rendering code here (Render a white triangle for testing) -----
 	    //Camera
-	    gl.glTranslatef(0.0f, 0.0f, -2.0f); // translate into the screen
-	    gl.glRotatef();
+	    gl.glTranslatef(0.0f, 0.0f, -2.5f); // translate into the screen
+	    //gl.glRotatef(90,0.0f,0.0f,-1.0f);
 	    //Brush
 	    gl.glBegin(GL.GL_LINES); // draw using triangles
-	    //Positive Axes
+	    //Positive Axes 
+	    gl.glColor3d(0.0f, 0.0f, 1.0f);
 	    gl.glVertex3d(0, 0, 0);
-	    gl.glVertex3d(1, 0, 0);
+	    gl.glVertex3d(1.8f, 0, 0);
+	    gl.glColor3d(1.0f, 0.0f, 0.0f);
 	    gl.glVertex3d(0, 0, 0);
-	    gl.glVertex3d(0, 1, 0);
+	    gl.glVertex3d(0, 1.2f, 0);
+	    gl.glColor3d(0.0f, 1.0f, 0.0f);
 	    gl.glVertex3d(0, 0, 0);
 	    gl.glVertex3d(0, 0, 1);
+	   
 	    //Neg Axes
+	    gl.glColor3d(0.0f, 0.0f, 1.0f);
 	    gl.glVertex3d(0, 0, 0);
-	    gl.glVertex3d(-1, 0, 0);
+	    gl.glVertex3d(-1.8f, 0, 0);
+	    gl.glColor3d(1.0f, 0.0f, 0.0f);
 	    gl.glVertex3d(0, 0, 0);
-	    gl.glVertex3d(0, -1, 0);
+	    gl.glVertex3d(0, -1.2f, 0);
+	    gl.glColor3d(0.0f, 1.0f, 0.0f);
 	    gl.glVertex3d(0, 0, 0);
 	    gl.glVertex3d(0, 0, -1);
 	    gl.glEnd();
