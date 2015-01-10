@@ -1,10 +1,13 @@
 package gui.roseLock;
 
+import java.awt.*;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.*;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -12,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.plaf.ComboBoxUI;
 
 public class SecurityQuestion extends JPanel {
 	private AnswerLine answerLine;
@@ -50,6 +54,7 @@ public class SecurityQuestion extends JPanel {
 		public AnswerLine(JComboBox<String> answers, JButton submit, String[] givenAnswers, RoseLock lock){
 			this.setLayout(new BoxLayout(this,BoxLayout.X_AXIS));
 			this.setBackground(Color.BLACK);
+			
 			
 			this.answerBox = answers;
 			for(String s : givenAnswers){

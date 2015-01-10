@@ -13,6 +13,7 @@ import javax.media.opengl.*;
 import javax.media.opengl.awt.GLCanvas;
 import javax.media.opengl.awt.GLJPanel;
 import javax.media.opengl.glu.GLU;
+
 import static javax.media.opengl.GL.*;  // GL constants
 import static javax.media.opengl.GL2.*; // GL2 constants
 
@@ -24,6 +25,7 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 	private FPSAnimator animator; 
 	private GLU glu;
 	private static enum Axis{incX,decX,incY,decY,incZ,decZ};
+	private static enum Plane{XY,XZ,YX,YZ,ZX,ZY};
 	
 	public TromboneGUI(Trombone Tromby, GLCapabilities glcapabilities){
 		super(glcapabilities);
@@ -68,7 +70,7 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 	      // ----- Your OpenGL rendering code here (Render a white triangle for testing) -----
 	    //Camera
 	    gl.glTranslatef(0.0f, 0.0f, -2.5f); // translate into the screen
-	    //gl.glRotatef(90,0.0f,0.0f,-1.0f);
+	    gl.glRotatef(45, 1.0f,0.0f,0.0f);
 	    //Brush
 	    	//Orienting Axes
 			    gl.glBegin(GL.GL_LINES); // draw using triangles
@@ -95,11 +97,10 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 			    gl.glEnd();
 			//Background Done    
 		    //Object Trombone
-			double sideLength = 0.6f;
-			createSquare(sideLength, gl, -0.6f, 0.4f, 0.0f,TromboneGUI.Axis.incX,TromboneGUI.Axis.decY);  
-		    gl.glBegin(GL.GL_LINE_LOOP);
-			drawCircle(gl);
-	    //
+			gl.glColor3d(0.7f,0.7f,1.0f);
+			createElbow(gl,0.6f,-0.6f,0.0f,0.0f,180.0f,270.0f, Plane.XZ);
+			//drawCircle(gl);
+	    
 	   /* gl.glColor3f(0.0f, 2.5f, 0.0f);
 	    gl.glVertex3d(0.0f, 1.0f, 0.0f);
 	    gl.glColor3f(1.0f, 0.0f, 0.0f);
@@ -155,7 +156,7 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 	private void drawCircle(GL2 brush){
 		int radius = 1;
 		double pi = Math.PI;
-		//brush.glBegin(GL.GL_LINES);
+		  brush.glBegin(GL.GL_LINE_LOOP);
 		
 		for(double ini = 0.0f ; ini < 2*pi ; ini+=0.1){
 			brush.glVertex3d(radius*Math.cos(ini), radius * Math.sin(ini), 0.0f);
@@ -220,5 +221,79 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 	    	default:System.out.println("fucked up CreateSquare");break;
 	    }
 	    gl.glEnd();
+	}
+	
+	private void createElbow(GL2 brush,double sideLength, double TLx, double TLy, double TLz, Plane plane, int quadrant){
+		brush.glBegin(GL2.GL_QUAD_STRIP);
+		brush.glVertex3d(TLx, TLy, TLz);
+		switch(plane){
+			case XY:
+					switch(quadrant){
+						case 1:brush.glVertex3d(TLx , TLy , TLz);break;
+						case 2:brush.glVertex3d(TLx , TLy , TLz);break;
+						case 3:brush.glVertex3d(TLx , TLy , TLz);break;
+						case 4:brush.glVertex3d(TLx , TLy , TLz);break;
+					};
+					break;
+			case XZ:
+					switch(quadrant){
+						case 1:brush.glVertex3d(TLx , TLy , TLz);break;
+						case 2:brush.glVertex3d(TLx , TLy , TLz);break;
+						case 3:brush.glVertex3d(TLx , TLy , TLz);break;
+						case 4:brush.glVertex3d(TLx , TLy , TLz);break;
+					};
+					break;
+			case YX:
+					switch(quadrant){
+						case 1:brush.glVertex3d(TLx , TLy , TLz);break;
+						case 2:brush.glVertex3d(TLx , TLy , TLz);break;
+						case 3:brush.glVertex3d(TLx , TLy , TLz);break;
+						case 4:brush.glVertex3d(TLx , TLy , TLz);break;
+					};
+					break;
+			case YZ:
+					switch(quadrant){
+						case 1:brush.glVertex3d(TLx , TLy , TLz);break;
+						case 2:brush.glVertex3d(TLx , TLy , TLz);break;
+						case 3:brush.glVertex3d(TLx , TLy , TLz);break;
+						case 4:brush.glVertex3d(TLx , TLy , TLz);break;
+					};
+					break;
+			case ZX:
+					switch(quadrant){
+						case 1:brush.glVertex3d(TLx , TLy , TLz);break;
+						case 2:brush.glVertex3d(TLx , TLy , TLz);break;
+						case 3:brush.glVertex3d(TLx , TLy , TLz);break;
+						case 4:brush.glVertex3d(TLx , TLy , TLz);break;
+					};
+					break;
+			case ZY:
+					switch(quadrant){
+						case 1:brush.glVertex3d(TLx , TLy , TLz);break;
+						case 2:brush.glVertex3d(TLx , TLy , TLz);break;
+						case 3:brush.glVertex3d(TLx , TLy , TLz);break;
+						case 4:brush.glVertex3d(TLx , TLy , TLz);break;
+					};
+					break;
+			default:;break;	
+		}
+		
+		brush.glVertex3d(TRx - sideLength, TRy, TRz);
+		brush.glVertex3d(TRx - sideLength, TRy-sideLength, TRz);
+		for(double angle = degreeFrom ; angle < degreeTo ; angle+=0.001f ){
+			//TODO Obey expand axis rules, change it to plane to plane
+			brush.glVertex3d(TRx, TRy, TRz);//1
+			brush.glVertex3d(TRx, TRy-sideLength , TRz);//2
+			brush.glVertex3d(TRx + (sideLength*Math.cos(Math.toRadians(angle))), TRy, TRz+(sideLength*Math.sin(Math.toRadians(angle))) );//4
+			brush.glVertex3d(TRx + (sideLength*Math.cos(Math.toRadians(angle))), (TRy-sideLength), TRz+(sideLength*Math.sin(Math.toRadians(angle))) );//3
+			
+		}
+		//createSquare(sideLength, brush, -0.6f, 0.4f, 0.0f,TromboneGUI.Axis.incX,TromboneGUI.Axis.decY);
+		//createSquare(sideLength, brush, 0.0f, 0.4f, 0.0f,TromboneGUI.Axis.decY,TromboneGUI.Axis.incZ);
+		brush.glEnd();
+	}
+	
+	private void createSquareTube(){
+		//TODO
 	}
 }
