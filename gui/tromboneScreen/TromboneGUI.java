@@ -98,7 +98,7 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 			//Background Done    
 		    //Object Trombone
 			gl.glColor3d(0.7f,0.7f,1.0f);
-			createElbow(gl,0.6f,-0.6f,0.0f,0.0f,180.0f,270.0f, Plane.XZ);
+			createElbow(gl,0.6f,-0.6f,0.0f,0.0f, Plane.XY, 1);
 			//drawCircle(gl);
 	    
 	   /* gl.glColor3f(0.0f, 2.5f, 0.0f);
@@ -224,6 +224,10 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 	}
 	
 	//TODO CURRENT
+	//Creating elbow by giving center coordinates and a plane and a quadrant in said plane.
+	//From center point, create elbow will create a square in the plane in the quadrant using the given center as a (0,0,0) point
+	//Elbow will be created as if looking at the elbow from the non-used dimensions perspective staring at the origin from some distance back
+	//It will be as though the elbow is curling toward the "Y" dimension of any given plane
 	private void createElbow(GL2 brush,double sideLength, double Cx, double Cy, double Cz, Plane plane, int quadrant){
 		brush.glBegin(GL2.GL_QUAD_STRIP);
 		brush.glVertex3d(Cx, Cy, Cz);
@@ -231,7 +235,7 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 			case XY:
 					switch(quadrant){
 						case 1:	
-							brush.glVertex3d(Cx + sideLength, Cy, Cz);
+							brush.glVertex3d(Cx, Cy + sideLength, Cz);
 							break;
 						case 2:	
 							brush.glVertex3d(Cx - sideLength, Cy, Cz);
@@ -339,6 +343,7 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 			default:
 				System.out.println("fuck up");break;	
 		}
+		
 		switch(plane){
 			case XY:
 					switch(quadrant){
@@ -346,13 +351,126 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 							brush.glVertex3d(Cx + sideLength, Cy, Cz);
 							break;
 						case 2:
-							brush.glVertex3d(Cx - sideLength, Cy, Cz);
+							brush.glVertex3d(Cx - sideLength, Cy + sideLength, Cz);
 							break;
 						case 3:
-							brush.glVertex3d(Cx - sideLength, Cy, Cz);
+							brush.glVertex3d(Cx - sideLength, Cy - sideLength, Cz);
 							break;
 						case 4:
-							brush.glVertex3d(Cx + sideLength, Cy, Cz);
+							brush.glVertex3d(Cx + sideLength, Cy - sideLength, Cz);
+							break;
+						default:
+							System.out.println("fuck up");break;
+					};
+					break;
+			case XZ:
+					switch(quadrant){
+						case 1:
+							brush.glVertex3d(Cx + sideLength, Cy, Cz + sideLength );
+							break;
+						case 2:
+							brush.glVertex3d(Cx - sideLength, Cy, Cz + sideLength );
+							break;
+						case 3:
+							brush.glVertex3d(Cx - sideLength, Cy, Cz - sideLength );
+							break;
+						case 4:
+							brush.glVertex3d(Cx + sideLength, Cy, Cz - sideLength);
+							break;
+						default:
+							System.out.println("fuck up");break;
+					};
+					break;
+			case YX:
+					switch(quadrant){
+						case 1:
+							brush.glVertex3d(Cx , Cy + sideLength , Cz);
+							break;
+						case 2:
+							brush.glVertex3d(Cx , Cy - sideLength , Cz);
+							break;
+						case 3:
+							brush.glVertex3d(Cx , Cy - sideLength , Cz);
+							break;
+						case 4:
+							brush.glVertex3d(Cx , Cy + sideLength , Cz);
+							break;
+						default:
+							System.out.println("fuck up");break;
+					};
+					break;
+			case YZ:
+					switch(quadrant){
+						case 1:
+							brush.glVertex3d(Cx , Cy + sideLength , Cz);
+							break;
+						case 2:
+							brush.glVertex3d(Cx , Cy - sideLength , Cz);
+							break;
+						case 3:
+							brush.glVertex3d(Cx , Cy - sideLength , Cz);
+							break;
+						case 4:
+							brush.glVertex3d(Cx , Cy + sideLength , Cz);
+							break;
+						default:
+							System.out.println("fuck up");break;
+					};
+					break;
+			case ZX:
+					switch(quadrant){
+						case 1:
+							brush.glVertex3d(Cx , Cy , Cz + sideLength);
+							break;
+						case 2:
+							brush.glVertex3d(Cx , Cy , Cz - sideLength);
+							break;
+						case 3:
+							brush.glVertex3d(Cx , Cy , Cz - sideLength);
+							break;
+						case 4:
+							brush.glVertex3d(Cx , Cy , Cz + sideLength);
+							break;
+						default:
+							System.out.println("fuck up");break;
+					};
+					break;
+			case ZY:
+					switch(quadrant){
+						case 1:
+							brush.glVertex3d(Cx , Cy , Cz + sideLength);
+							break;
+						case 2:
+							brush.glVertex3d(Cx , Cy , Cz - sideLength);
+							break;
+						case 3:
+							brush.glVertex3d(Cx , Cy , Cz - sideLength);
+							break;
+						case 4:
+							brush.glVertex3d(Cx , Cy , Cz + sideLength);
+							break;
+						default:
+							System.out.println("fuck up");break;
+					};
+					break;
+			default:
+				System.out.println("fuck up");break;	
+		}
+		
+		switch(plane){
+			case XY:
+					switch(quadrant){
+						case 1:
+							brush.glVertex3d( Cx + sideLength , Cy + sideLength , Cz );
+							break;
+						case 2:
+							brush.glVertex3d(Cx, Cy + sideLength, Cz);
+							break;
+						case 3:
+							brush.glVertex3d(Cx, Cy  - sideLength, Cz);
+							break;
+						case 4:
+							brush.glVertex3d(Cx, Cy - sideLength, Cz);
 							break;
 						default:
 							System.out.println("fuck up");break;
@@ -449,132 +567,69 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 					};
 					break;
 			default:
-				System.out.println("fuck up");break;	
-		}
-		switch(plane){
-		case XY:
-				switch(quadrant){
-					case 1:
-						brush.glVertex3d(Cx + sideLength, Cy, Cz);
-						break;
-					case 2:
-						brush.glVertex3d(Cx - sideLength, Cy, Cz);
-						break;
-					case 3:
-						brush.glVertex3d(Cx - sideLength, Cy, Cz);
-						break;
-					case 4:
-						brush.glVertex3d(Cx + sideLength, Cy, Cz);
-						break;
-					default:
-						System.out.println("fuck up");break;
-				};
-				break;
-		case XZ:
-				switch(quadrant){
-					case 1:
-						brush.glVertex3d(Cx + sideLength, Cy, Cz );
-						break;
-					case 2:
-						brush.glVertex3d(Cx - sideLength, Cy, Cz );
-						break;
-					case 3:
-						brush.glVertex3d(Cx - sideLength, Cy, Cz );
-						break;
-					case 4:
-						brush.glVertex3d(Cx + sideLength, Cy, Cz );
-						break;
-					default:
-						System.out.println("fuck up");break;
-				};
-				break;
-		case YX:
-				switch(quadrant){
-					case 1:
-						brush.glVertex3d(Cx , Cy + sideLength , Cz);
-						break;
-					case 2:
-						brush.glVertex3d(Cx , Cy - sideLength , Cz);
-						break;
-					case 3:
-						brush.glVertex3d(Cx , Cy - sideLength , Cz);
-						break;
-					case 4:
-						brush.glVertex3d(Cx , Cy + sideLength , Cz);
-						break;
-					default:
-						System.out.println("fuck up");break;
-				};
-				break;
-		case YZ:
-				switch(quadrant){
-					case 1:
-						brush.glVertex3d(Cx , Cy + sideLength , Cz);
-						break;
-					case 2:
-						brush.glVertex3d(Cx , Cy - sideLength , Cz);
-						break;
-					case 3:
-						brush.glVertex3d(Cx , Cy - sideLength , Cz);
-						break;
-					case 4:
-						brush.glVertex3d(Cx , Cy + sideLength , Cz);
-						break;
-					default:
-						System.out.println("fuck up");break;
-				};
-				break;
-		case ZX:
-				switch(quadrant){
-					case 1:
-						brush.glVertex3d(Cx , Cy , Cz + sideLength);
-						break;
-					case 2:
-						brush.glVertex3d(Cx , Cy , Cz - sideLength);
-						break;
-					case 3:
-						brush.glVertex3d(Cx , Cy , Cz - sideLength);
-						break;
-					case 4:
-						brush.glVertex3d(Cx , Cy , Cz + sideLength);
-						break;
-					default:
-						System.out.println("fuck up");break;
-				};
-				break;
-		case ZY:
-				switch(quadrant){
-					case 1:
-						brush.glVertex3d(Cx , Cy , Cz + sideLength);
-						break;
-					case 2:
-						brush.glVertex3d(Cx , Cy , Cz - sideLength);
-						break;
-					case 3:
-						brush.glVertex3d(Cx , Cy , Cz - sideLength);
-						break;
-					case 4:
-						brush.glVertex3d(Cx , Cy , Cz + sideLength);
-						break;
-					default:
-						System.out.println("fuck up");break;
-				};
-				break;
-		default:
 			System.out.println("fuck up");break;	
-	}
+		}
 		
-		brush.glVertex3d(Cx - sideLength, Cy, Cz);
-		brush.glVertex3d(Cx - sideLength, Cy-sideLength, Cz);
+		double angleFrom = 0.0f;
+		double angleTo = 0.0f;
 		
+		switch(quadrant){
+			case 1:
+				angleFrom = 0.0f;
+				angleTo = 90.0f;
+				break;
+			case 2:
+				angleFrom = 90.0f;
+				angleTo = 180.0f;;
+				break;
+			case 3:
+				angleFrom = 180.0f;
+				angleTo = 270.0f;
+				break;
+			case 4:
+				angleFrom = 270.0f;
+				angleTo = 360.0f;
+				break;
+			default:
+				System.out.println("Funked Up");;
+				break;
+		}
 		
-		
-		for(double angle = 180.0f ; angle < 270.0f ; angle+=0.001f ){
+		//Different perspective I take I think...
+		for(double angle = angleFrom ; angle < angleTo ; angle+=0.001f ){
 			//TODO Obey expand axis rules, change it to plane to plane
 			brush.glVertex3d(Cx, Cy, Cz);//1
-			brush.glVertex3d(Cx, Cy-sideLength , Cz);//2
-			brush.glVertex3d(Cx + (sideLength*Math.cos(Math.toRadians(angle))), Cy, Cz+(sideLength*Math.sin(Math.toRadians(angle))) );//4
-			brush.glVertex3d(Cx + (sideLength*Math.cos(Math.toRadians(angle))), (Cy-sideLength), Cz+(sideLength*Math.sin(Math.toRadians(angle))) );//3
+			switch(plane){
+				case XY:
+					brush.glVertex3d( Cx , Cy + sideLength , Cz );//2
+					break;
+				default:
+					;
+					break;
+			}
+			
+			switch(plane){
+				case XY:
+					brush.glVertex3d( Cx + (sideLength*Math.cos(Math.toRadians(angle))) , Cy , Cz-(sideLength*Math.sin(Math.toRadians(angle))) );//4
+					break;
+				default:
+					;
+					break;
+			}
+			
+			switch(plane){
+				case XY:
+					brush.glVertex3d( Cx + (sideLength*Math.cos(Math.toRadians(angle))) , Cy + sideLength , Cz-(sideLength*Math.sin(Math.toRadians(angle))) );//3;
+					break;
+				default:
+					;
+					break;
+			}
+			
+			//brush.glVertex3d(Cx, Cy, Cz);//1
+			//brush.glVertex3d(Cx, Cy-sideLength , Cz);//2
+			//brush.glVertex3d(Cx + (sideLength*Math.cos(Math.toRadians(angle))), Cy, Cz+(sideLength*Math.sin(Math.toRadians(angle))) );//4
+			//brush.glVertex3d(Cx + (sideLength*Math.cos(Math.toRadians(angle))), (Cy-sideLength), Cz+(sideLength*Math.sin(Math.toRadians(angle))) );//3
 			
 		}
 		//createSquare(sideLength, brush, -0.6f, 0.4f, 0.0f,TromboneGUI.Axis.incX,TromboneGUI.Axis.decY);
