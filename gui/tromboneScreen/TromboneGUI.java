@@ -223,63 +223,352 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 	    gl.glEnd();
 	}
 	
+	//TODO CURRENT
 	private void createElbow(GL2 brush,double sideLength, double TLx, double TLy, double TLz, Plane plane, int quadrant){
 		brush.glBegin(GL2.GL_QUAD_STRIP);
 		brush.glVertex3d(TLx, TLy, TLz);
 		switch(plane){
 			case XY:
 					switch(quadrant){
-						case 1:brush.glVertex3d(TLx , TLy , TLz);break;
-						case 2:brush.glVertex3d(TLx , TLy , TLz);break;
-						case 3:brush.glVertex3d(TLx , TLy , TLz);break;
-						case 4:brush.glVertex3d(TLx , TLy , TLz);break;
+						case 1:	
+							brush.glVertex3d(TLx + sideLength, TLy, TLz);
+							break;
+						case 2:	
+							brush.glVertex3d(TLx - sideLength, TLy, TLz);
+							break;
+						case 3:	
+							brush.glVertex3d(TLx - sideLength, TLy, TLz);
+							break;
+						case 4:	
+							brush.glVertex3d(TLx + sideLength, TLy, TLz);
+							break;
+						default:	
+							System.out.println("fuck up");break;
 					};
 					break;
 			case XZ:
 					switch(quadrant){
-						case 1:brush.glVertex3d(TLx , TLy , TLz);break;
-						case 2:brush.glVertex3d(TLx , TLy , TLz);break;
-						case 3:brush.glVertex3d(TLx , TLy , TLz);break;
-						case 4:brush.glVertex3d(TLx , TLy , TLz);break;
+						case 1:
+							brush.glVertex3d(TLx + sideLength, TLy, TLz );
+							break;
+						case 2:
+							brush.glVertex3d(TLx - sideLength, TLy, TLz );
+							break;
+						case 3:
+							brush.glVertex3d(TLx - sideLength, TLy, TLz );
+							break;
+						case 4:
+							brush.glVertex3d(TLx + sideLength, TLy, TLz );
+							break;
+						default:
+							System.out.println("fuck up");break;
 					};
 					break;
 			case YX:
 					switch(quadrant){
-						case 1:brush.glVertex3d(TLx , TLy , TLz);break;
-						case 2:brush.glVertex3d(TLx , TLy , TLz);break;
-						case 3:brush.glVertex3d(TLx , TLy , TLz);break;
-						case 4:brush.glVertex3d(TLx , TLy , TLz);break;
+						case 1:
+							brush.glVertex3d(TLx , TLy + sideLength , TLz);
+							break;
+						case 2:
+							brush.glVertex3d(TLx , TLy - sideLength , TLz);
+							break;
+						case 3:
+							brush.glVertex3d(TLx , TLy - sideLength , TLz);
+							break;
+						case 4:
+							brush.glVertex3d(TLx , TLy + sideLength , TLz);
+							break;
+						default:
+							System.out.println("fuck up");break;
 					};
 					break;
 			case YZ:
 					switch(quadrant){
-						case 1:brush.glVertex3d(TLx , TLy , TLz);break;
-						case 2:brush.glVertex3d(TLx , TLy , TLz);break;
-						case 3:brush.glVertex3d(TLx , TLy , TLz);break;
-						case 4:brush.glVertex3d(TLx , TLy , TLz);break;
+						case 1:
+							brush.glVertex3d(TLx , TLy + sideLength , TLz);
+							break;
+						case 2:
+							brush.glVertex3d(TLx , TLy - sideLength , TLz);
+							break;
+						case 3:
+							brush.glVertex3d(TLx , TLy - sideLength , TLz);
+							break;
+						case 4:
+							brush.glVertex3d(TLx , TLy + sideLength , TLz);
+							break;
+						default:
+							System.out.println("fuck up");break;
 					};
 					break;
 			case ZX:
 					switch(quadrant){
-						case 1:brush.glVertex3d(TLx , TLy , TLz);break;
-						case 2:brush.glVertex3d(TLx , TLy , TLz);break;
-						case 3:brush.glVertex3d(TLx , TLy , TLz);break;
-						case 4:brush.glVertex3d(TLx , TLy , TLz);break;
+						case 1:
+							brush.glVertex3d(TLx , TLy , TLz + sideLength);
+							break;
+						case 2:
+							brush.glVertex3d(TLx , TLy , TLz - sideLength);
+							break;
+						case 3:
+							brush.glVertex3d(TLx , TLy , TLz - sideLength);
+							break;
+						case 4:
+							brush.glVertex3d(TLx , TLy , TLz + sideLength);
+							break;
+						default:
+							System.out.println("fuck up");break;
 					};
 					break;
 			case ZY:
 					switch(quadrant){
-						case 1:brush.glVertex3d(TLx , TLy , TLz);break;
-						case 2:brush.glVertex3d(TLx , TLy , TLz);break;
-						case 3:brush.glVertex3d(TLx , TLy , TLz);break;
-						case 4:brush.glVertex3d(TLx , TLy , TLz);break;
+						case 1:
+							brush.glVertex3d(TLx , TLy , TLz + sideLength);
+							break;
+						case 2:
+							brush.glVertex3d(TLx , TLy , TLz - sideLength);
+							break;
+						case 3:
+							brush.glVertex3d(TLx , TLy , TLz - sideLength);
+							break;
+						case 4:
+							brush.glVertex3d(TLx , TLy , TLz + sideLength);
+							break;
+						default:
+							System.out.println("fuck up");break;
 					};
 					break;
-			default:;break;	
+			default:
+				System.out.println("fuck up");break;	
 		}
+		switch(plane){
+			case XY:
+					switch(quadrant){
+						case 1:
+							brush.glVertex3d(TLx + sideLength, TLy, TLz);
+							break;
+						case 2:
+							brush.glVertex3d(TLx - sideLength, TLy, TLz);
+							break;
+						case 3:
+							brush.glVertex3d(TLx - sideLength, TLy, TLz);
+							break;
+						case 4:
+							brush.glVertex3d(TLx + sideLength, TLy, TLz);
+							break;
+						default:
+							System.out.println("fuck up");break;
+					};
+					break;
+			case XZ:
+					switch(quadrant){
+						case 1:
+							brush.glVertex3d(TLx + sideLength, TLy, TLz );
+							break;
+						case 2:
+							brush.glVertex3d(TLx - sideLength, TLy, TLz );
+							break;
+						case 3:
+							brush.glVertex3d(TLx - sideLength, TLy, TLz );
+							break;
+						case 4:
+							brush.glVertex3d(TLx + sideLength, TLy, TLz );
+							break;
+						default:
+							System.out.println("fuck up");break;
+					};
+					break;
+			case YX:
+					switch(quadrant){
+						case 1:
+							brush.glVertex3d(TLx , TLy + sideLength , TLz);
+							break;
+						case 2:
+							brush.glVertex3d(TLx , TLy - sideLength , TLz);
+							break;
+						case 3:
+							brush.glVertex3d(TLx , TLy - sideLength , TLz);
+							break;
+						case 4:
+							brush.glVertex3d(TLx , TLy + sideLength , TLz);
+							break;
+						default:
+							System.out.println("fuck up");break;
+					};
+					break;
+			case YZ:
+					switch(quadrant){
+						case 1:
+							brush.glVertex3d(TLx , TLy + sideLength , TLz);
+							break;
+						case 2:
+							brush.glVertex3d(TLx , TLy - sideLength , TLz);
+							break;
+						case 3:
+							brush.glVertex3d(TLx , TLy - sideLength , TLz);
+							break;
+						case 4:
+							brush.glVertex3d(TLx , TLy + sideLength , TLz);
+							break;
+						default:
+							System.out.println("fuck up");break;
+					};
+					break;
+			case ZX:
+					switch(quadrant){
+						case 1:
+							brush.glVertex3d(TLx , TLy , TLz + sideLength);
+							break;
+						case 2:
+							brush.glVertex3d(TLx , TLy , TLz - sideLength);
+							break;
+						case 3:
+							brush.glVertex3d(TLx , TLy , TLz - sideLength);
+							break;
+						case 4:
+							brush.glVertex3d(TLx , TLy , TLz + sideLength);
+							break;
+						default:
+							System.out.println("fuck up");break;
+					};
+					break;
+			case ZY:
+					switch(quadrant){
+						case 1:
+							brush.glVertex3d(TLx , TLy , TLz + sideLength);
+							break;
+						case 2:
+							brush.glVertex3d(TLx , TLy , TLz - sideLength);
+							break;
+						case 3:
+							brush.glVertex3d(TLx , TLy , TLz - sideLength);
+							break;
+						case 4:
+							brush.glVertex3d(TLx , TLy , TLz + sideLength);
+							break;
+						default:
+							System.out.println("fuck up");break;
+					};
+					break;
+			default:
+				System.out.println("fuck up");break;	
+		}
+		switch(plane){
+		case XY:
+				switch(quadrant){
+					case 1:
+						brush.glVertex3d(TLx + sideLength, TLy, TLz);
+						break;
+					case 2:
+						brush.glVertex3d(TLx - sideLength, TLy, TLz);
+						break;
+					case 3:
+						brush.glVertex3d(TLx - sideLength, TLy, TLz);
+						break;
+					case 4:
+						brush.glVertex3d(TLx + sideLength, TLy, TLz);
+						break;
+					default:
+						System.out.println("fuck up");break;
+				};
+				break;
+		case XZ:
+				switch(quadrant){
+					case 1:
+						brush.glVertex3d(TLx + sideLength, TLy, TLz );
+						break;
+					case 2:
+						brush.glVertex3d(TLx - sideLength, TLy, TLz );
+						break;
+					case 3:
+						brush.glVertex3d(TLx - sideLength, TLy, TLz );
+						break;
+					case 4:
+						brush.glVertex3d(TLx + sideLength, TLy, TLz );
+						break;
+					default:
+						System.out.println("fuck up");break;
+				};
+				break;
+		case YX:
+				switch(quadrant){
+					case 1:
+						brush.glVertex3d(TLx , TLy + sideLength , TLz);
+						break;
+					case 2:
+						brush.glVertex3d(TLx , TLy - sideLength , TLz);
+						break;
+					case 3:
+						brush.glVertex3d(TLx , TLy - sideLength , TLz);
+						break;
+					case 4:
+						brush.glVertex3d(TLx , TLy + sideLength , TLz);
+						break;
+					default:
+						System.out.println("fuck up");break;
+				};
+				break;
+		case YZ:
+				switch(quadrant){
+					case 1:
+						brush.glVertex3d(TLx , TLy + sideLength , TLz);
+						break;
+					case 2:
+						brush.glVertex3d(TLx , TLy - sideLength , TLz);
+						break;
+					case 3:
+						brush.glVertex3d(TLx , TLy - sideLength , TLz);
+						break;
+					case 4:
+						brush.glVertex3d(TLx , TLy + sideLength , TLz);
+						break;
+					default:
+						System.out.println("fuck up");break;
+				};
+				break;
+		case ZX:
+				switch(quadrant){
+					case 1:
+						brush.glVertex3d(TLx , TLy , TLz + sideLength);
+						break;
+					case 2:
+						brush.glVertex3d(TLx , TLy , TLz - sideLength);
+						break;
+					case 3:
+						brush.glVertex3d(TLx , TLy , TLz - sideLength);
+						break;
+					case 4:
+						brush.glVertex3d(TLx , TLy , TLz + sideLength);
+						break;
+					default:
+						System.out.println("fuck up");break;
+				};
+				break;
+		case ZY:
+				switch(quadrant){
+					case 1:
+						brush.glVertex3d(TLx , TLy , TLz + sideLength);
+						break;
+					case 2:
+						brush.glVertex3d(TLx , TLy , TLz - sideLength);
+						break;
+					case 3:
+						brush.glVertex3d(TLx , TLy , TLz - sideLength);
+						break;
+					case 4:
+						brush.glVertex3d(TLx , TLy , TLz + sideLength);
+						break;
+					default:
+						System.out.println("fuck up");break;
+				};
+				break;
+		default:
+			System.out.println("fuck up");break;	
+	}
 		
 		brush.glVertex3d(TRx - sideLength, TRy, TRz);
 		brush.glVertex3d(TRx - sideLength, TRy-sideLength, TRz);
+		
+		
+		
 		for(double angle = degreeFrom ; angle < degreeTo ; angle+=0.001f ){
 			//TODO Obey expand axis rules, change it to plane to plane
 			brush.glVertex3d(TRx, TRy, TRz);//1
