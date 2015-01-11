@@ -73,10 +73,10 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 		    //Y neg = Spin axis Clockwise from bottom
 		    //Z neg = Spin axis Clockwise from front
 	    
-	    	gl.glRotatef(90, 0.0f,-1.0f,0.0f);
+	    	gl.glRotatef(180, 0.0f,1.0f,0.0f);
 	    	
 	    	//Negative means Positive?
-		    gl.glTranslatef(-2.5f, 0.0f, 0.0f); // translate into the screen
+		    gl.glTranslatef(0.0f, 0.0f, 2.5f); // translate into the screen
 		   
 	    //Brush
 	    	//Orienting Axes
@@ -106,7 +106,7 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 		    //Object Trombone
 			gl.glColor3d(0.7f,0.7f,1.0f);
 			
-			//createElbow(gl,0.6f,0.0f,0.0f,0.0f, Plane.YZ,1);
+			createElbow(gl,0.6f,0.0f,0.0f,0.0f, Plane.ZX,1);
 			//createElbow(gl,0.6f,0.0f,0.0f,0.0f, Plane.YZ,2);
 			//createElbow(gl,0.6f,0.0f,0.0f,0.0f, Plane.YZ,3);
 			//createElbow(gl,0.6f,0.0f,0.0f,0.0f, Plane.YZ,4);
@@ -331,6 +331,32 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 								break;
 						}
 						break;
+					case ZX:
+						switch(quadrant){
+							case 1:
+								brush.glVertex3d( Cx + sideLength , Cy , Cz );//2
+								break;
+							case 3:
+								brush.glVertex3d( Cx - sideLength , Cy , Cz );//2
+								break;
+							default:
+								System.out.println("fucked up3");
+								break;
+						}
+						break;
+					case ZY:
+						switch(quadrant){
+							case 1:
+								brush.glVertex3d( Cx , Cy + sideLength , Cz );//2
+								break;
+							case 3:
+								brush.glVertex3d( Cx , Cy - sideLength , Cz );//2
+								break;
+							default:
+								System.out.println("fucked up3");
+								break;
+						}
+						break;
 					default:
 						System.out.println("fucked up5");
 						break;
@@ -389,6 +415,32 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 								break;
 						}
 						break;
+					case ZX:
+						switch(quadrant){
+							case 1:
+								brush.glVertex3d( Cx , Cy - (sideLength*Math.sin(Math.toRadians(angle))) , Cz + (sideLength*Math.cos(Math.toRadians(angle))) );//4
+								break;
+							case 3:
+								brush.glVertex3d( Cx , Cy + (sideLength*Math.sin(Math.toRadians(angle))) , Cz + (sideLength*Math.cos(Math.toRadians(angle))) );//4
+								break;
+							default:
+								System.out.println("fucked up7");
+								break; 
+						}
+						break;
+					case ZY:
+						switch(quadrant){
+							case 1:
+								brush.glVertex3d( Cx - (sideLength*Math.sin(Math.toRadians(angle))) , Cy , Cz + (sideLength*Math.cos(Math.toRadians(angle))) );//4
+								break;
+							case 3:
+								brush.glVertex3d( Cx + (sideLength*Math.sin(Math.toRadians(angle))) , Cy , Cz + (sideLength*Math.cos(Math.toRadians(angle))) );//4
+								break;
+							default:
+								System.out.println("fucked up7");
+								break; 
+						}
+						break;
 					default:
 						System.out.println("fucked up10");
 						break;
@@ -444,6 +496,32 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 								break;
 							default:
 								System.out.println("fucked up14");
+								break;
+						}
+						break;
+					case ZX:
+						switch(quadrant){
+							case 1:
+								brush.glVertex3d( Cx + sideLength , Cy - (sideLength*Math.sin(Math.toRadians(angle))) , Cz + (sideLength*Math.cos(Math.toRadians(angle))) );//3;
+								break;
+							case 3:
+								brush.glVertex3d( Cx - sideLength , Cy + (sideLength*Math.sin(Math.toRadians(angle))) , Cz + (sideLength*Math.cos(Math.toRadians(angle))) );//3;
+								break;
+							default:
+								System.out.println("fucked up12");
+								break;
+						}
+						break;
+					case ZY:
+						switch(quadrant){
+							case 1:
+								brush.glVertex3d( Cx - (sideLength*Math.sin(Math.toRadians(angle))) , Cy + sideLength , Cz + (sideLength*Math.cos(Math.toRadians(angle))) );//3;
+								break;
+							case 3:
+								brush.glVertex3d( Cx + (sideLength*Math.sin(Math.toRadians(angle))) , Cy - sideLength , Cz + (sideLength*Math.cos(Math.toRadians(angle))) );//3;
+								break;
+							default:
+								System.out.println("fucked up12");
 								break;
 						}
 						break;
@@ -513,6 +591,32 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 								break;
 						}
 						break;
+					case ZX:
+						switch(quadrant){
+							case 2:
+								brush.glVertex3d( Cx + sideLength , Cy , Cz );//2
+								break;
+							case 4:
+								brush.glVertex3d( Cx - sideLength , Cy , Cz );//2
+								break;
+							default:
+								System.out.println("fucked upB");
+								break;
+						}
+						break;
+					case ZY:
+						switch(quadrant){
+							case 2:
+								brush.glVertex3d( Cx , Cy + sideLength , Cz );//2
+								break;
+							case 4:
+								brush.glVertex3d( Cx , Cy - sideLength , Cz );//2
+								break;
+							default:
+								System.out.println("fucked upB");
+								break;
+						}
+						break;
 					default:
 						System.out.println("fucked upC");
 						break;
@@ -571,6 +675,32 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 								break;
 						}
 						break;
+					case ZX:
+						switch(quadrant){
+							case 2:
+								brush.glVertex3d( Cx , Cy - (sideLength*Math.sin(Math.toRadians(angle))) , Cz + (sideLength*Math.cos(Math.toRadians(angle))) );//4
+								break;
+							case 4:
+								brush.glVertex3d( Cx , Cy + (sideLength*Math.sin(Math.toRadians(angle))) , Cz + (sideLength*Math.cos(Math.toRadians(angle))) );//4
+								break;
+							default:
+								System.out.println("fucked upD");
+								break;
+						}
+						break;
+					case ZY:
+						switch(quadrant){
+							case 2:
+								brush.glVertex3d( Cx - (sideLength*Math.sin(Math.toRadians(angle))) , Cy , Cz + (sideLength*Math.cos(Math.toRadians(angle))) );//4
+								break;
+							case 4:
+								brush.glVertex3d( Cx + (sideLength*Math.sin(Math.toRadians(angle))) , Cy , Cz + (sideLength*Math.cos(Math.toRadians(angle))) );//4
+								break;
+							default:
+								System.out.println("fucked upD");
+								break;
+						}
+						break;
 					default:
 						System.out.println("fucked upF");
 						break;
@@ -623,6 +753,32 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 								break;
 							case 4:
 								brush.glVertex3d( Cx + (sideLength*Math.sin(Math.toRadians(angle))) , Cy + (sideLength*Math.cos(Math.toRadians(angle))) , Cz - sideLength );//3;
+								break;
+							default:
+								System.out.println("fucked upG");
+								break;
+						}
+						break;
+					case ZX:
+						switch(quadrant){
+							case 2:
+								brush.glVertex3d( Cx + sideLength , Cy - (sideLength*Math.sin(Math.toRadians(angle))) , Cz + (sideLength*Math.cos(Math.toRadians(angle))) );//3;
+								break;
+							case 4:
+								brush.glVertex3d( Cx - sideLength , Cy + (sideLength*Math.sin(Math.toRadians(angle))) , Cz + (sideLength*Math.cos(Math.toRadians(angle))) );//3;
+								break;
+							default:
+								System.out.println("fucked upG");
+								break;
+						}
+						break;
+					case ZY:
+						switch(quadrant){
+							case 2:
+								brush.glVertex3d( Cx - (sideLength*Math.sin(Math.toRadians(angle))) , Cy + sideLength , Cz + (sideLength*Math.cos(Math.toRadians(angle))) );//3;
+								break;
+							case 4:
+								brush.glVertex3d( Cx + (sideLength*Math.sin(Math.toRadians(angle))) , Cy - sideLength , Cz + (sideLength*Math.cos(Math.toRadians(angle))) );//3;
 								break;
 							default:
 								System.out.println("fucked upG");
