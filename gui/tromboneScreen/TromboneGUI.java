@@ -73,10 +73,10 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 		    //Y neg = Spin axis Clockwise from bottom LeftHanded
 		    //Z neg = Spin axis Clockwise from front LeftHanded
 	    
-	    	gl.glRotatef(90, 0.0f,-1.0f,0.0f);
+	    	gl.glRotatef(45, 1.0f,0.0f,0.0f);
 	    	
 	    	//Negative means Positive?
-		    gl.glTranslatef(-2.5f, 0.0f,0.0f); // translate into the screen
+		    gl.glTranslatef(0.0f, -2.5f,-2.5f); // translate into the screen
 		   
 	    //Brush
 	    	//Orienting Axes
@@ -105,7 +105,7 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 			//Background Done    
 		    //Object Trombone
 			gl.glColor3d(0.7f,0.7f,1.0f);
-			createSquareTube(gl,0.6f,0.0f,0.0f,-0.1f, Axis.decZ,0.6f);
+			createSquareTube(gl,0.6f,-0.6f,0.6f,0.0f, Axis.decZ,1.0f);
 			//createElbow(gl,0.6f,0.0f,0.0f,0.0f, Plane.ZY,1);
 			//createElbow(gl,0.6f,0.0f,0.0f,0.0f, Plane.YZ,2);
 			//createElbow(gl,0.6f,0.0f,0.0f,0.0f, Plane.YZ,3);
