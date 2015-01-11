@@ -70,13 +70,13 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 	      // ----- Your OpenGL rendering code here (Render a white triangle for testing) -----
 	    //Camera
 		    //X neg = Spin axis towards you from sides
-		    //Y neg = Spin axis Clockwise from bottom
-		    //Z neg = Spin axis Clockwise from front
+		    //Y neg = Spin axis Clockwise from bottom LeftHanded
+		    //Z neg = Spin axis Clockwise from front LeftHanded
 	    
-	    	gl.glRotatef(180, 0.0f,1.0f,0.0f);
+	    	gl.glRotatef(180, 0.0f,-1.0f,0.0f);
 	    	
 	    	//Negative means Positive?
-		    gl.glTranslatef(0.0f, 0.0f, 2.5f); // translate into the screen
+		    gl.glTranslatef(0.0f, 0.0f,2.5f); // translate into the screen
 		   
 	    //Brush
 	    	//Orienting Axes
@@ -106,7 +106,7 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 		    //Object Trombone
 			gl.glColor3d(0.7f,0.7f,1.0f);
 			
-			createElbow(gl,0.6f,0.0f,0.0f,0.0f, Plane.ZX,1);
+			createElbow(gl,0.6f,0.0f,0.0f,0.0f, Plane.ZY,1);
 			//createElbow(gl,0.6f,0.0f,0.0f,0.0f, Plane.YZ,2);
 			//createElbow(gl,0.6f,0.0f,0.0f,0.0f, Plane.YZ,3);
 			//createElbow(gl,0.6f,0.0f,0.0f,0.0f, Plane.YZ,4);
@@ -241,6 +241,8 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 	//Elbow will be created as if looking at the elbow from the non-used dimensions perspective staring at the origin from some distance back
 	//First axis of plane is the "X" axis, second axis of the plane is "Y" axis.
 	//It will be as though the elbow is curling toward the "Y" dimension of any given plane
+	//Elbows: Traveling in negative "X" direction, get sent in negative non-used direction
+	//Elbows: Traveling in positive "Y" direction, get sent in negative non-used direction 
 	private void createElbow(GL2 brush,double sideLength, double Cx, double Cy, double Cz, Plane plane, int quadrant){
 		brush.glBegin(GL2.GL_QUAD_STRIP);
 		
