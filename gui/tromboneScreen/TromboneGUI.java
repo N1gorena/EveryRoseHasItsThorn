@@ -69,8 +69,15 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 	    
 	      // ----- Your OpenGL rendering code here (Render a white triangle for testing) -----
 	    //Camera
-	    gl.glTranslatef(0.0f, 0.0f, -2.5f); // translate into the screen
-	    gl.glRotatef(45, 1.0f,0.0f,0.0f);
+		    //X neg = Spin axis towards you from sides
+		    //Y neg = Spin axis Clockwise from bottom
+		    //Z neg = Spin axis Clockwise from front
+	    
+	    	gl.glRotatef(90, 0.0f,-1.0f,0.0f);
+	    	
+	    	//Negative means Positive?
+		    gl.glTranslatef(-2.5f, 0.0f, 0.0f); // translate into the screen
+		   
 	    //Brush
 	    	//Orienting Axes
 			    gl.glBegin(GL.GL_LINES); // draw using triangles
@@ -98,7 +105,12 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 			//Background Done    
 		    //Object Trombone
 			gl.glColor3d(0.7f,0.7f,1.0f);
-			createElbow(gl,0.6f,-0.6f,0.0f,0.0f, Plane.XY, 1);
+			
+			//createElbow(gl,0.6f,0.0f,0.0f,0.0f, Plane.YZ,1);
+			//createElbow(gl,0.6f,0.0f,0.0f,0.0f, Plane.YZ,2);
+			//createElbow(gl,0.6f,0.0f,0.0f,0.0f, Plane.YZ,3);
+			//createElbow(gl,0.6f,0.0f,0.0f,0.0f, Plane.YZ,4);
+
 			//drawCircle(gl);
 	    
 	   /* gl.glColor3f(0.0f, 2.5f, 0.0f);
@@ -227,10 +239,12 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 	//Creating elbow by giving center coordinates and a plane and a quadrant in said plane.
 	//From center point, create elbow will create a square in the plane in the quadrant using the given center as a (0,0,0) point
 	//Elbow will be created as if looking at the elbow from the non-used dimensions perspective staring at the origin from some distance back
+	//First axis of plane is the "X" axis, second axis of the plane is "Y" axis.
 	//It will be as though the elbow is curling toward the "Y" dimension of any given plane
 	private void createElbow(GL2 brush,double sideLength, double Cx, double Cy, double Cz, Plane plane, int quadrant){
 		brush.glBegin(GL2.GL_QUAD_STRIP);
-		brush.glVertex3d(Cx, Cy, Cz);
+		
+		//Quadrant Validation?
 		
 		double angleFrom = 0.0f;
 		double angleTo = 0.0f;
@@ -241,62 +255,389 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 				angleTo = 90.0f;
 				break;
 			case 2:
-				angleFrom = 90.0f;
-				angleTo = 180.0f;;
+				angleFrom = 180.0f;
+				angleTo = 90.0f;
 				break;
 			case 3:
 				angleFrom = 180.0f;
 				angleTo = 270.0f;
 				break;
 			case 4:
-				angleFrom = 270.0f;
-				angleTo = 360.0f;
+				angleFrom = 360.0f;
+				angleTo = 270.0f;
 				break;
 			default:
 				System.out.println("Funked Up");;
 				break;
 		}
 		
-		//Different perspective I take I think...
-		for(double angle = angleFrom ; angle < angleTo ; angle+=0.001f ){
-			//TODO Obey expand axis rules, change it to plane to plane
-			brush.glVertex3d(Cx, Cy, Cz);//1
-			switch(plane){
-				case XY:
-					brush.glVertex3d( Cx , Cy + sideLength , Cz );//2
-					break;
-				default:
-					;
-					break;
+		if( quadrant%2 != 0 ){//ODD quadrants
+			//Different perspective I take I think...
+			for(double angle = angleFrom ; angle < angleTo ; angle += 0.001f ){
+				//TODO Obey expand axis rules, change it to plane to plane
+				brush.glVertex3d(Cx, Cy, Cz);//1
+				//Up the second Axis
+				//Point 2
+				switch(plane){
+					case XY:
+						switch(quadrant){
+							case 1:
+								brush.glVertex3d( Cx , Cy + sideLength , Cz );//2
+								break;
+							case 3:
+								brush.glVertex3d( Cx , Cy - sideLength , Cz );//2
+								break;
+							default:
+								System.out.println("fucked up1");
+								break;
+						}
+						break;
+					case XZ:
+						switch(quadrant){
+							case 1:
+								brush.glVertex3d( Cx , Cy , Cz + sideLength );//2
+								break;
+							case 3:
+								brush.glVertex3d( Cx , Cy , Cz - sideLength);//2
+								break;
+							default:
+								System.out.println("fucked up2");
+								break;
+						}
+						break;
+					case YX:
+						switch(quadrant){
+							case 1:
+								brush.glVertex3d( Cx + sideLength , Cy , Cz );//2
+								break;
+							case 3:
+								brush.glVertex3d( Cx - sideLength , Cy , Cz );//2
+								break;
+							default:
+								System.out.println("fucked up3");
+								break;
+						}
+						break;
+					case YZ:
+						switch(quadrant){
+							case 1:
+								brush.glVertex3d( Cx , Cy , Cz + sideLength );//2
+								break;
+							case 3:
+								brush.glVertex3d( Cx , Cy , Cz - sideLength );//2
+								break;
+							default:
+								System.out.println("fucked up4");
+								break;
+						}
+						break;
+					default:
+						System.out.println("fucked up5");
+						break;
+				}
+				//Point 4
+				switch(plane){
+					case XY:
+						switch(quadrant){
+							case 1:
+								brush.glVertex3d( Cx + (sideLength*Math.cos(Math.toRadians(angle))) , Cy , Cz - (sideLength*Math.sin(Math.toRadians(angle))) );//4
+								break;
+							case 3:
+								brush.glVertex3d( Cx + (sideLength*Math.cos(Math.toRadians(angle))) , Cy , Cz + (sideLength*Math.sin(Math.toRadians(angle))) );//4
+								break;
+							default:
+								System.out.println("fucked up6");
+								break;
+						}
+						break;
+					case XZ:
+						switch(quadrant){
+							case 1:
+								brush.glVertex3d( Cx + (sideLength*Math.cos(Math.toRadians(angle))) , Cy - (sideLength*Math.sin(Math.toRadians(angle))) , Cz );//4
+								break;
+							case 3:
+								brush.glVertex3d( Cx + (sideLength*Math.cos(Math.toRadians(angle))) , Cy + (sideLength*Math.sin(Math.toRadians(angle))) , Cz );//4
+								break;
+							default:
+								System.out.println("fucked up7");
+								break; 
+						}
+						break;
+					case YX://TODO
+						switch(quadrant){
+							case 1:
+								brush.glVertex3d( Cx , Cy + (sideLength*Math.cos(Math.toRadians(angle))) , Cz - (sideLength*Math.sin(Math.toRadians(angle))) );//4
+								break;
+							case 3:
+								brush.glVertex3d( Cx , Cy + (sideLength*Math.cos(Math.toRadians(angle))) , Cz + (sideLength*Math.sin(Math.toRadians(angle))) );//4
+								break;
+							default:
+								System.out.println("fucked up8");
+								break;
+						}
+						break;
+					case YZ:
+						switch(quadrant){
+							case 1:
+								brush.glVertex3d( Cx  - (sideLength*Math.sin(Math.toRadians(angle))) , Cy + (sideLength*Math.cos(Math.toRadians(angle))) , Cz );//4
+								break;
+							case 3:
+								brush.glVertex3d( Cx  + (sideLength*Math.sin(Math.toRadians(angle))) , Cy + (sideLength*Math.cos(Math.toRadians(angle))) , Cz );//4
+								break;
+							default:
+								System.out.println("fucked up9");
+								break;
+						}
+						break;
+					default:
+						System.out.println("fucked up10");
+						break;
+				}
+				//Point three
+				switch(plane){
+					case XY:
+						switch(quadrant){
+							case 1:
+								brush.glVertex3d( Cx + (sideLength*Math.cos(Math.toRadians(angle))) , Cy + sideLength , Cz - (sideLength*Math.sin(Math.toRadians(angle))) );//3;
+								break;
+							case 3:
+								brush.glVertex3d( Cx + (sideLength*Math.cos(Math.toRadians(angle))) , Cy - sideLength , Cz + (sideLength*Math.sin(Math.toRadians(angle))) );//3;
+								break;
+							default:
+								System.out.println("fucked up11");
+								break;
+						}
+						break;
+					case XZ:
+						switch(quadrant){
+							case 1:
+								brush.glVertex3d( Cx + (sideLength*Math.cos(Math.toRadians(angle))) , Cy - (sideLength*Math.sin(Math.toRadians(angle))) , Cz + sideLength );//3;
+								break;
+							case 3:
+								brush.glVertex3d( Cx + (sideLength*Math.cos(Math.toRadians(angle))) , Cy + (sideLength*Math.sin(Math.toRadians(angle))) , Cz - sideLength );//3;
+								break;
+							default:
+								System.out.println("fucked up12");
+								break;
+						}
+						break;
+					case YX:
+						switch(quadrant){
+							case 1:
+								brush.glVertex3d( Cx + sideLength , Cy + (sideLength*Math.cos(Math.toRadians(angle))) , Cz - (sideLength*Math.sin(Math.toRadians(angle))) );//3;
+								break;
+							case 3:
+								brush.glVertex3d( Cx - sideLength , Cy + (sideLength*Math.cos(Math.toRadians(angle))) , Cz + (sideLength*Math.sin(Math.toRadians(angle))) );//3;
+								break;
+							default:
+								System.out.println("fucked up13");
+								break;
+						}
+						break;
+					case YZ:
+						switch(quadrant){
+							case 1:
+								brush.glVertex3d( Cx - (sideLength*Math.sin(Math.toRadians(angle))) , Cy + (sideLength*Math.cos(Math.toRadians(angle))) , Cz + sideLength );//3;
+								break;
+							case 3:
+								brush.glVertex3d( Cx + (sideLength*Math.sin(Math.toRadians(angle))) , Cy + (sideLength*Math.cos(Math.toRadians(angle))) , Cz - sideLength );//3;
+								break;
+							default:
+								System.out.println("fucked up14");
+								break;
+						}
+						break;
+					default:
+						System.out.println("fucked up last");
+						break;
+					
+				}
 			}
-			
-			switch(plane){
-				case XY:
-					brush.glVertex3d( Cx + (sideLength*Math.cos(Math.toRadians(angle))) , Cy , Cz-(sideLength*Math.sin(Math.toRadians(angle))) );//4
-					break;
-				default:
-					;
-					break;
-			}
-			
-			switch(plane){
-				case XY:
-					brush.glVertex3d( Cx + (sideLength*Math.cos(Math.toRadians(angle))) , Cy + sideLength , Cz-(sideLength*Math.sin(Math.toRadians(angle))) );//3;
-					break;
-				default:
-					;
-					break;
-			}
-			
-			//brush.glVertex3d(Cx, Cy, Cz);//1
-			//brush.glVertex3d(Cx, Cy-sideLength , Cz);//2
-			//brush.glVertex3d(Cx + (sideLength*Math.cos(Math.toRadians(angle))), Cy, Cz+(sideLength*Math.sin(Math.toRadians(angle))) );//4
-			//brush.glVertex3d(Cx + (sideLength*Math.cos(Math.toRadians(angle))), (Cy-sideLength), Cz+(sideLength*Math.sin(Math.toRadians(angle))) );//3
-			
+			brush.glEnd();
 		}
-		//createSquare(sideLength, brush, -0.6f, 0.4f, 0.0f,TromboneGUI.Axis.incX,TromboneGUI.Axis.decY);
-		//createSquare(sideLength, brush, 0.0f, 0.4f, 0.0f,TromboneGUI.Axis.decY,TromboneGUI.Axis.incZ);
-		brush.glEnd();
+		else{//EVENS
+			for(double angle = angleFrom ; angle > angleTo ; angle -= 0.001f ){
+				//TODO Obey expand axis rules, change it to plane to plane
+				brush.glVertex3d(Cx, Cy, Cz);//1
+				//Up the second Axis
+				switch(plane){
+					case XY:
+						switch(quadrant){
+							case 2:
+								brush.glVertex3d( Cx , Cy + sideLength , Cz );//2
+								break;
+							case 4:
+								brush.glVertex3d( Cx , Cy - sideLength , Cz );//2
+								break;
+							default:
+								System.out.println("fucked upA");
+								break;
+						}
+						break;
+					case XZ:
+						switch(quadrant){
+							case 2:
+								brush.glVertex3d( Cx , Cy , Cz  + sideLength );//2
+								break;
+							case 4:
+								brush.glVertex3d( Cx , Cy , Cz  - sideLength );//2
+								break;
+							default:
+								System.out.println("fucked upB");
+								break;
+						}
+						break;
+					case YX:
+						switch(quadrant){
+							case 2:
+								brush.glVertex3d( Cx + sideLength , Cy , Cz );//2
+								break;
+							case 4:
+								brush.glVertex3d( Cx - sideLength , Cy , Cz );//2
+								break;
+							default:
+								System.out.println("fucked upA");
+								break;
+						}
+						break;
+					case YZ:
+						switch(quadrant){
+							case 2:
+								brush.glVertex3d( Cx , Cy , Cz + sideLength );//2
+								break;
+							case 4:
+								brush.glVertex3d( Cx , Cy , Cz - sideLength );//2
+								break;
+							default:
+								System.out.println("fucked upA");
+								break;
+						}
+						break;
+					default:
+						System.out.println("fucked upC");
+						break;
+				}
+				
+				switch(plane){
+					case XY:
+						switch(quadrant){
+							case 2:
+								brush.glVertex3d( Cx + (sideLength*Math.cos(Math.toRadians(angle))) , Cy , Cz - (sideLength*Math.sin(Math.toRadians(angle))) );//4
+								break;
+							case 4:
+								brush.glVertex3d( Cx + (sideLength*Math.cos(Math.toRadians(angle))) , Cy , Cz + (sideLength*Math.sin(Math.toRadians(angle))) );//4
+								break;
+							default:
+								System.out.println("fucked upD");
+								break;
+						}
+						break;
+					case XZ:
+						switch(quadrant){
+							case 2:
+								brush.glVertex3d( Cx + (sideLength*Math.cos(Math.toRadians(angle))) , Cy - (sideLength*Math.sin(Math.toRadians(angle))) , Cz );//4
+								break;
+							case 4:
+								brush.glVertex3d( Cx + (sideLength*Math.cos(Math.toRadians(angle))) , Cy + (sideLength*Math.sin(Math.toRadians(angle))) , Cz );//4
+								break;
+							default:
+								System.out.println("fucked upE");
+								break;
+						}
+						break;
+					case YX:
+						switch(quadrant){
+							case 2:
+								brush.glVertex3d( Cx , Cy + (sideLength*Math.cos(Math.toRadians(angle))) , Cz - (sideLength*Math.sin(Math.toRadians(angle))) );//4
+								break;
+							case 4:
+								brush.glVertex3d( Cx , Cy + (sideLength*Math.cos(Math.toRadians(angle))) , Cz + (sideLength*Math.sin(Math.toRadians(angle))) );//4
+								break;
+							default:
+								System.out.println("fucked upD");
+								break;
+						}
+						break;
+					case YZ:
+						switch(quadrant){
+							case 2:
+								brush.glVertex3d( Cx - (sideLength*Math.sin(Math.toRadians(angle))) , Cy + (sideLength*Math.cos(Math.toRadians(angle))) , Cz );//4
+								break;
+							case 4:
+								brush.glVertex3d( Cx  + (sideLength*Math.sin(Math.toRadians(angle))) , Cy + (sideLength*Math.cos(Math.toRadians(angle))) , Cz );//4
+								break;
+							default:
+								System.out.println("fucked upD");
+								break;
+						}
+						break;
+					default:
+						System.out.println("fucked upF");
+						break;
+				}
+				
+				switch(plane){
+					case XY:
+						switch(quadrant){
+							case 2:
+								brush.glVertex3d( Cx + (sideLength*Math.cos(Math.toRadians(angle))) , Cy + sideLength , Cz - (sideLength*Math.sin(Math.toRadians(angle))) );//3;
+								break;
+							case 4:
+								brush.glVertex3d( Cx + (sideLength*Math.cos(Math.toRadians(angle))) , Cy - sideLength , Cz + (sideLength*Math.sin(Math.toRadians(angle))) );//3;
+								break;
+							default:
+								System.out.println("fucked upG");
+								break;
+						}
+						break;
+					case XZ:
+						switch(quadrant){
+							case 2:
+								brush.glVertex3d( Cx + (sideLength*Math.cos(Math.toRadians(angle))) , Cy - (sideLength*Math.sin(Math.toRadians(angle))) , Cz + sideLength );//3;
+								break;
+							case 4:
+								brush.glVertex3d( Cx + (sideLength*Math.cos(Math.toRadians(angle))) , Cy + (sideLength*Math.sin(Math.toRadians(angle))) , Cz - sideLength );//3;
+								break;
+							default:
+								System.out.println("fucked up H");
+								break;
+						}
+						break;
+					case YX:
+						switch(quadrant){
+							case 2:
+								brush.glVertex3d( Cx + sideLength , Cy + (sideLength*Math.cos(Math.toRadians(angle))) , Cz - (sideLength*Math.sin(Math.toRadians(angle))) );//3;
+								break;
+							case 4:
+								brush.glVertex3d( Cx - sideLength , Cy + (sideLength*Math.cos(Math.toRadians(angle))) , Cz + (sideLength*Math.sin(Math.toRadians(angle))) );//3;
+								break;
+							default:
+								System.out.println("fucked upG");
+								break;
+						}
+						break;
+					case YZ:
+						switch(quadrant){
+							case 2:
+								brush.glVertex3d( Cx - (sideLength*Math.sin(Math.toRadians(angle))) , Cy + (sideLength*Math.cos(Math.toRadians(angle))) , Cz + sideLength );//3;
+								break;
+							case 4:
+								brush.glVertex3d( Cx + (sideLength*Math.sin(Math.toRadians(angle))) , Cy + (sideLength*Math.cos(Math.toRadians(angle))) , Cz - sideLength );//3;
+								break;
+							default:
+								System.out.println("fucked upG");
+								break;
+						}
+						break;
+					default:
+						System.out.println("fucked upI");
+						break;
+					
+				}
+
+			}
+			brush.glEnd();
+		}
 	}
 	
 	private void createSquareTube(){
