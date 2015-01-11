@@ -73,10 +73,10 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 		    //Y neg = Spin axis Clockwise from bottom LeftHanded
 		    //Z neg = Spin axis Clockwise from front LeftHanded
 	    
-	    	gl.glRotatef(180, 0.0f,-1.0f,0.0f);
+	    	gl.glRotatef(90, 0.0f,-1.0f,0.0f);
 	    	
 	    	//Negative means Positive?
-		    gl.glTranslatef(0.0f, 0.0f,2.5f); // translate into the screen
+		    gl.glTranslatef(-2.5f, 0.0f,0.0f); // translate into the screen
 		   
 	    //Brush
 	    	//Orienting Axes
@@ -105,8 +105,8 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 			//Background Done    
 		    //Object Trombone
 			gl.glColor3d(0.7f,0.7f,1.0f);
-			
-			createElbow(gl,0.6f,0.0f,0.0f,0.0f, Plane.ZY,1);
+			createSquareTube(gl,0.6f,0.0f,0.0f,-0.1f, Axis.decZ,0.6f);
+			//createElbow(gl,0.6f,0.0f,0.0f,0.0f, Plane.ZY,1);
 			//createElbow(gl,0.6f,0.0f,0.0f,0.0f, Plane.YZ,2);
 			//createElbow(gl,0.6f,0.0f,0.0f,0.0f, Plane.YZ,3);
 			//createElbow(gl,0.6f,0.0f,0.0f,0.0f, Plane.YZ,4);
@@ -235,7 +235,7 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 	    gl.glEnd();
 	}
 	
-	//TODO CURRENT
+	//TODO Most Recent
 	//Creating elbow by giving center coordinates and a plane and a quadrant in said plane.
 	//From center point, create elbow will create a square in the plane in the quadrant using the given center as a (0,0,0) point
 	//Elbow will be created as if looking at the elbow from the non-used dimensions perspective staring at the origin from some distance back
@@ -798,7 +798,90 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 		}
 	}
 	
-	private void createSquareTube(){
-		//TODO
+	//Defaults to traveling in negative direction because its the same thing as traveling in positive direction
+	//Y axis is Up when traveling x or z axis
+	//Z axis is up when traveling y axis.
+	private void createSquareTube(GL2 brush, double sideLength, double TLx, double TLy, double TLz, Axis direction, double stretchLength){
+		//TODO Current
+		brush.glBegin(GL2.GL_QUAD_STRIP);
+		//Square 1
+			//Point 1
+			brush.glVertex3d( TLx , TLy , TLz );
+			//Point 2
+			if(direction == Axis.decX || direction == Axis.incX){
+				brush.glVertex3d( TLx , TLy , TLz - sideLength );
+			}
+			else if( direction == Axis.decY || direction == Axis.incY){
+				brush.glVertex3d( TLx - sideLength , TLy , TLz );
+			}
+			else if(direction == Axis.decZ || direction == Axis.incZ){
+				brush.glVertex3d( TLx + sideLength  , TLy, TLz );
+			}
+			//Point 4
+			if(direction == Axis.decX || direction == Axis.incX){
+				brush.glVertex3d( TLx , TLy - sideLength , TLz );
+			}
+			else if( direction == Axis.decY || direction == Axis.incY){
+				brush.glVertex3d( TLx , TLy , TLz - sideLength );
+			}
+			else if(direction == Axis.decZ || direction == Axis.incZ){
+				brush.glVertex3d( TLx , TLy  - sideLength , TLz );
+			}
+			//point 3
+			if(direction == Axis.decX || direction == Axis.incX){
+				brush.glVertex3d( TLx , TLy - sideLength , TLz - sideLength );
+			}
+			else if( direction == Axis.decY || direction == Axis.incY){
+				brush.glVertex3d( TLx  - sideLength , TLy , TLz - sideLength );
+			}
+			else if(direction == Axis.decZ || direction == Axis.incZ){
+				brush.glVertex3d( TLx + sideLength , TLy - sideLength , TLz );
+			}
+		//Square 2
+			for(double length = 0.0f ; length < stretchLength ; length += 0.0001f){
+				//Point 1
+				if(direction == Axis.decX || direction == Axis.incX){
+					brush.glVertex3d( TLx - length , TLy , TLz );
+				}
+				else if( direction == Axis.decY || direction == Axis.incY){
+					brush.glVertex3d( TLx , TLy - length , TLz );
+				}
+				else if(direction == Axis.decZ || direction == Axis.incZ){
+					brush.glVertex3d( TLx  , TLy, TLz - length);
+				}
+				//Point 2
+				if(direction == Axis.decX || direction == Axis.incX){
+					brush.glVertex3d( TLx - length , TLy , TLz - sideLength );
+				}
+				else if( direction == Axis.decY || direction == Axis.incY){
+					brush.glVertex3d( TLx - sideLength , TLy - length , TLz );
+				}
+				else if(direction == Axis.decZ || direction == Axis.incZ){
+					brush.glVertex3d( TLx + sideLength  , TLy, TLz - length );
+				}
+				//Point 4
+				if(direction == Axis.decX || direction == Axis.incX){
+					brush.glVertex3d( TLx - length , TLy - sideLength , TLz );
+				}
+				else if( direction == Axis.decY || direction == Axis.incY){
+					brush.glVertex3d( TLx , TLy - length , TLz - sideLength );
+				}
+				else if(direction == Axis.decZ || direction == Axis.incZ){
+					brush.glVertex3d( TLx , TLy  - sideLength , TLz - length );
+				}
+				//point 3
+				if(direction == Axis.decX || direction == Axis.incX){
+					brush.glVertex3d( TLx - length , TLy - sideLength , TLz - sideLength );
+				}
+				else if( direction == Axis.decY || direction == Axis.incY){
+					brush.glVertex3d( TLx  - sideLength , TLy - length , TLz - sideLength );
+				}
+				else if(direction == Axis.decZ || direction == Axis.incZ){
+					brush.glVertex3d( TLx + sideLength , TLy - sideLength , TLz - length );
+				}
+			}
+		
+		
+		brush.glEnd();
 	}
 }
