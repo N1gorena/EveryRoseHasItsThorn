@@ -75,8 +75,12 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 	    
 	    	gl.glRotatef(35, 1.0f,0.0f,0.0f);
 	    	gl.glRotatef(35, 0.0f,1.0f,0.0f);
+	    	//gl.glRotatef(90, 0.0f,1.0f,0.0f);
+	    
+	    
 	    	//Negative means Positive?
-		    gl.glTranslatef(0.0f, -12.5f,-12.5f); // translate into the screen
+		    gl.glTranslatef( 0.0f , -12.5f,-12.5f);
+	    	//gl.glTranslatef(0.0f, -3.0f ,0.0f);
 		   
 	    //Brush
 	    	//Orienting Axes
@@ -131,43 +135,13 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 					createNegativeTravelElbow( gl , trombHeight , slideLength + sectionLength , trombHeight , 0.0f, Plane.XZ , 1);//Turn up
 					createSquareTube( gl , trombHeight , slideLength + sectionLength + trombHeight , trombHeight + verticalSeperation , trombHeight , Axis.decY, verticalSeperation );//Straight up
 					createPositiveTravelElbow( gl , trombHeight, slideLength + sectionLength  , trombHeight + verticalSeperation , 0.0f , Plane.XZ , 1);//Turn Back
+					createSquareTube( gl , trombHeight , slideLength + (sectionLength)/2 , trombHeight + verticalSeperation, trombHeight , Axis.decY , verticalSeperation);//Spanning tube
 					createSquareTube( gl , trombHeight , slideLength + sectionLength , trombHeight + verticalSeperation + trombHeight, trombHeight , Axis.decX , sectionLength );//Head Back/Top
 				//Bell
-					
-			//createElbow(gl,0.6f,0.0f,0.0f,0.0f, Plane.YZ,2);
-			//createElbow(gl,0.6f,0.0f,0.0f,0.0f, Plane.YZ,3);
-			//createElbow(gl,0.6f,0.0f,0.0f,0.0f, Plane.YZ,4);
-
-			//drawCircle(gl);
-	    
-	   /* gl.glColor3f(0.0f, 2.5f, 0.0f);
-	    gl.glVertex3d(0.0f, 1.0f, 0.0f);
-	    gl.glColor3f(1.0f, 0.0f, 0.0f);
-	    gl.glVertex3f(-1.0f, -1.0f, 0.0f);
-	    gl.glColor3f(0.0f, 0.0f, 1.0f);
-	    gl.glVertex3f(1.0f, -1.0f, 0.0f);
-	    gl.glEnd();
-	    
-	    
-	    gl.glBegin(GL.GL_TRIANGLES); // draw using triangles
-	    gl.glColor3f(0.0f, 1.0f, 0.0f);
-	    gl.glVertex3d(-1.0f, -1.0f, 0.0f);
-	    gl.glColor3f(1.0f, 0.0f, 0.0f);
-	    gl.glVertex3f(-3.0f, -1.0f, 0.0f);
-	    gl.glColor3f(0.0f, 0.0f, 1.0f);
-	    gl.glVertex3f(-2.0f, 1.0f, 0.0f);
-	    gl.glEnd();
-	    
-	    gl.glBegin(GL.GL_TRIANGLES); // draw using triangles
-	    gl.glColor3f(0.0f, 1.0f, 0.0f);
-	    gl.glVertex3d(-1.0f, -1.0f, 0.0f);
-	    gl.glColor3f(1.0f, 0.0f, 0.0f);
-	    gl.glVertex3f(0.0f, 1.0f, 0.0f);
-	    gl.glColor3f(0.0f, 0.0f, 1.0f);
-	    gl.glVertex3f(-2.0f, 1.0f, 0.0f);
-	    gl.glEnd();*/
-	    
-	    
+					double Cx = slideLength;
+					double Cy = verticalSeperation + (trombHeight/2.0f) + trombHeight;
+					double Cz = trombHeight/2.0f;
+					createBell(gl , Cx , Cy, Cz , trombHeight/2 + 0.1f);    
 	}
 
 	@Override
@@ -192,13 +166,26 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 		
 	}
 	
-	private void drawCircle(GL2 brush){
-		int radius = 1;
+	private void drawCircle(GL2 brush, double circleRadius , Plane pl , double Cx , double Cy , double Cz){
+		double radius = circleRadius;
 		double pi = Math.PI;
-		  brush.glBegin(GL.GL_LINE_LOOP);
 		
-		for(double ini = 0.0f ; ini < 2*pi ; ini+=0.1){
-			brush.glVertex3d(radius*Math.cos(ini), radius * Math.sin(ini), 0.0f);
+		brush.glBegin(GL.GL_LINE_LOOP);
+		
+		if( pl == Plane.XY || pl == Plane.YX ){
+			for(double ini = 0.0f ; ini < 2*pi ; ini+=0.1){
+				brush.glVertex3d( Cx + ( radius*Math.cos(ini) ) , Cy + ( radius * Math.sin(ini) ), Cz + 0.0f);
+			}
+		}
+		else if( pl == Plane.XZ || pl == Plane.ZX ){
+			for(double ini = 0.0f ; ini < 2*pi ; ini+=0.01f){
+				brush.glVertex3d( Cx + ( radius*Math.cos(ini) ), Cy + 0.0f, Cz + ( radius * Math.sin(ini) ) );
+			}
+		}
+		else if( pl == Plane.YZ || pl == Plane.ZY ){
+			for(double ini = 0.0f ; ini < 2*pi ; ini+=0.1){
+				brush.glVertex3d( Cx + 0.0f , Cy + ( radius * Math.sin(ini) ), Cz + ( radius*Math.cos(ini) ) );
+			}
 		}
 		brush.glEnd();
 	}
@@ -913,14 +900,14 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 	}
 	
 	//TODO Current if need be, not Done, just did the one I needed so far.
-		//Creating elbow by giving center coordinates and a plane and a quadrant in said plane.
-		//From center point, create elbow will create a square in the plane in the quadrant using the given center as a (0,0,0) point
-		//Elbow will be created as if looking at the elbow from the non-used dimensions perspective staring at the origin from some distance back
-		//First axis of plane is the "X" axis, second axis of the plane is "Y" axis.
-		//It will be as though the elbow is curling toward the "Y" dimension of any given plane
-		//Elbows: Traveling in Positive "X" direction, get sent in negative non-used direction
-		//
-		private void createPositiveTravelElbow(GL2 brush,double sideLength, double Cx, double Cy, double Cz, Plane plane, int quadrant){
+	//Creating elbow by giving center coordinates and a plane and a quadrant in said plane.
+	//From center point, create elbow will create a square in the plane in the quadrant using the given center as a (0,0,0) point
+	//Elbow will be created as if looking at the elbow from the non-used dimensions perspective staring at the origin from some distance back
+	//First axis of plane is the "X" axis, second axis of the plane is "Y" axis.
+	//It will be as though the elbow is curling toward the "Y" dimension of any given plane
+	//Elbows: Traveling in Positive "X" direction, get sent in negative non-used direction
+	//
+	private void createPositiveTravelElbow(GL2 brush,double sideLength, double Cx, double Cy, double Cz, Plane plane, int quadrant){
 			brush.glBegin(GL2.GL_QUAD_STRIP);
 			
 			//Quadrant Validation?
@@ -1474,4 +1461,23 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 				brush.glEnd();
 			}
 		}
+		
+	private void createBell(GL2 brush, double Cx , double Cy, double Cz , double startRadius){
+		//Orientation is opening in neg x direction, because Its what I need for my Trombone
+		for( double startX = Cx ; startX > Cx - 5.0f; startX -= 0.01f ){
+			drawCircle( brush , startRadius , Plane.YZ , startX , Cy , Cz);
+			if(startRadius < 1.0f)
+				startRadius += 0.001f;
+		}
+		
+		for( double startX = Cx - 5.0f ; startX > Cx - 5.5f; startX -= 0.001f ){
+			drawCircle( brush , startRadius , Plane.YZ , startX , Cy , Cz);
+			if(startRadius < 3.0f)
+				startRadius += 0.0015f;
+		}
+		
+		
+		
+		
+	}
 }
