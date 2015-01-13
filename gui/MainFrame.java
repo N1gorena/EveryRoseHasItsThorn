@@ -17,6 +17,7 @@ public class MainFrame extends JFrame {
 	
 	public static final Dimension screenDim = Toolkit.getDefaultToolkit().getScreenSize();
 	private RoseLock lockScreen;
+	private TromboneScreen instrumentScreen; 
 	
 	public MainFrame(){
 		this.setTitle("8-Bit Trombone");
@@ -35,13 +36,17 @@ public class MainFrame extends JFrame {
 		this.setSize(hack);
 		this.setLocation( ((screenDim.width/2) - this.getWidth()/2) , ((screenDim.height/2) - this.getHeight()/2) );
 		
-		TromboneScreen testPane = new TromboneScreen(this.getContentPane());
-		this.add(testPane,"TEST");
+		this.instrumentScreen = new TromboneScreen(this.getContentPane());
+		this.add(instrumentScreen,"TEST");
 	}
 
 	public void cardSwap(String string) {
 		CardLayout myCL = (CardLayout) this.getContentPane().getLayout();
 		myCL.show(this.getContentPane(), "TEST");
+	}
+	
+	public void moveSlide(double dist){
+		instrumentScreen.getTromboneGUI().setOffset(dist);
 	}
 
 }

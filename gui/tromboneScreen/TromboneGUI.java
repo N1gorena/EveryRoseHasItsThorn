@@ -24,6 +24,7 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 	private static final int FPS = 60;
 	private FPSAnimator animator; 
 	private GLU glu;
+	private double offSet;
 	private static enum Axis{incX,decX,incY,decY,incZ,decZ};
 	private static enum Plane{XY,XZ,YX,YZ,ZX,ZY};
 	
@@ -111,25 +112,32 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 			
 				//OuterSlide section
 					double trombHeight = 0.5f;
+					double trombInnerOffset = -0.05f;
 					double seperationDistance = 3.0f;
 					double slideLength = 15.0f;
-					gl.glColor3d(1.0f,0.0f,0.0f);
 					
-					createSquareTube( gl, trombHeight , -trombHeight , trombHeight , 0.0f , Axis.decZ , seperationDistance );
-					createNegativeTravelElbow( gl , trombHeight , 0.0f , 0.0f , 0.0f , Plane.ZY , 1 );//Near side of end of slide
-					createNegativeTravelElbow( gl , trombHeight ,0.0f , 0.0f , -3.0f , Plane.ZY , 2 );//Far side of end of slide
-					createSquareTube( gl , trombHeight , slideLength , trombHeight , -seperationDistance , Axis.decX, slideLength );//Far side of slide
-					createSquareTube( gl , trombHeight , slideLength ,trombHeight , trombHeight , Axis.decX, slideLength );//Near side of slide
-					createSquareTube( gl , trombHeight , slideLength - trombHeight ,trombHeight, 0.0f, Axis.decZ, seperationDistance );
+					
+					gl.glColor3d(0.71f,0.65f,0.26f);
+					
+					createSquareTube( gl, trombHeight , -trombHeight + offSet , trombHeight , 0.0f , Axis.decZ , seperationDistance );
+					createNegativeTravelElbow( gl , trombHeight , offSet , 0.0f , 0.0f , Plane.ZY , 1 );//Near side of end of slide
+					createNegativeTravelElbow( gl , trombHeight , offSet , 0.0f , -3.0f , Plane.ZY , 2 );//Far side of end of slide
+					createSquareTube( gl , trombHeight , slideLength + offSet , trombHeight , -seperationDistance , Axis.decX, slideLength );//Far side of slide
+					createSquareTube( gl , trombHeight , slideLength + offSet, trombHeight , trombHeight , Axis.decX, slideLength );//Near side of slide
+					createSquareTube( gl , trombHeight , slideLength - trombHeight + offSet ,trombHeight, 0.0f, Axis.decZ, seperationDistance );
 				//MouthPiece
 					double mouthPieceLength = 3.0f;
-					gl.glColor3d( 0.0f , 1.0f , 0.0f );
+					gl.glColor3d( 0.765625f , 0.77734375f , 0.805f );
 					
 					createSquareTube( gl , trombHeight , slideLength + mouthPieceLength , trombHeight , -seperationDistance ,  Axis.decX, mouthPieceLength );
+				//InnerSlide TODO
+					
+					createSquareTube( gl , trombHeight + trombInnerOffset , slideLength, trombHeight + trombInnerOffset , -seperationDistance + trombInnerOffset , Axis.decX, (slideLength*2.0f)/3.0f );//Far side of slide
+					createSquareTube( gl , trombHeight + trombInnerOffset , slideLength, trombHeight + trombInnerOffset , trombHeight + trombInnerOffset , Axis.decX, (slideLength*2.0f)/3.0f );//Near side of slide
 				//TuningSection
 					double sectionLength = 7.5f;
 					double verticalSeperation = 3.0f;
-					gl.glColor3d(0.0f,0.0f,1.0f);
+					gl.glColor3d(0.71f,0.65f,0.26f);
 					
 					createSquareTube( gl , trombHeight , slideLength + sectionLength , trombHeight , trombHeight , Axis.decX , sectionLength );//Bottom
 					createNegativeTravelElbow( gl , trombHeight , slideLength + sectionLength , trombHeight , 0.0f, Plane.XZ , 1);//Turn up
@@ -1463,6 +1471,8 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 		}
 		
 	private void createBell(GL2 brush, double Cx , double Cy, double Cz , double startRadius){
+
+		
 		//Orientation is opening in neg x direction, because Its what I need for my Trombone
 		for( double startX = Cx ; startX > Cx - 5.0f; startX -= 0.01f ){
 			drawCircle( brush , startRadius , Plane.YZ , startX , Cy , Cz);
@@ -1479,5 +1489,9 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 		
 		
 		
+	}
+
+	public void setOffset(double offSet){
+		this.offSet = offSet;
 	}
 }

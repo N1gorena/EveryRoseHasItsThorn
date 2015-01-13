@@ -19,6 +19,8 @@ import trombone.Trombone;
 
 public class TromboneScreen extends JPanel {
 	
+	private TromboneGUI myTromboneGUI = null;
+	
 	public TromboneScreen(Container mf){
 		this.setBackground(Color.BLUE);
 		this.setLayout(new GridBagLayout());
@@ -34,7 +36,7 @@ public class TromboneScreen extends JPanel {
 		
 		GLProfile glprofile = GLProfile.getDefault();
 		GLCapabilities glcapabilities = new GLCapabilities(glprofile);
-		TromboneGUI tromboneGUI = new TromboneGUI(RTrombone,glcapabilities);
+		this.myTromboneGUI = new TromboneGUI(RTrombone,glcapabilities);
 		GridBagConstraints trombGUIConstraints = new GridBagConstraints();
 		trombGUIConstraints.gridx = 0;
 		trombGUIConstraints.gridy = 0;
@@ -43,8 +45,8 @@ public class TromboneScreen extends JPanel {
 		trombGUIConstraints.anchor = GridBagConstraints.FIRST_LINE_START;
 		trombGUIConstraints.fill = GridBagConstraints.BOTH;
 		//JButton testButton = new JButton("Fuck");
-		tromboneGUI.setSize(MainFrame.screenDim);
-		this.add(tromboneGUI, trombGUIConstraints);
+		myTromboneGUI.setSize(MainFrame.screenDim);
+		this.add(myTromboneGUI, trombGUIConstraints);
 		
 		
 		//ControlsGUI controls = new ControlsGUI();
@@ -73,5 +75,9 @@ public class TromboneScreen extends JPanel {
 		testButton3.setSize(MainFrame.screenDim);
 		this.add(testButton3, Constraints);
 		
+	}
+	
+	public TromboneGUI getTromboneGUI(){
+		return this.myTromboneGUI;
 	}
 }
