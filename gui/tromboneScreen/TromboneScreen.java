@@ -1,6 +1,7 @@
 package gui.tromboneScreen;
 
 import gui.MainFrame;
+import gui.Ivory.Ivory;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -20,6 +21,7 @@ import trombone.Trombone;
 public class TromboneScreen extends JPanel {
 	
 	private TromboneGUI myTromboneGUI = null;
+	private Ivory Keyano = null;
 	
 	public TromboneScreen(Container mf){
 		this.setBackground(Color.BLUE);
@@ -71,13 +73,18 @@ public class TromboneScreen extends JPanel {
 		Constraints.fill = GridBagConstraints.BOTH;
 		Constraints.gridwidth = 2;
 		
-		JButton testButton3 = new JButton("Fuck");
-		testButton3.setSize(MainFrame.screenDim);
-		this.add(testButton3, Constraints);
-		
+		this.Keyano = new Ivory("");
+		this.Keyano.setInstrument(this.myTromboneGUI);
+		Keyano.setSize(MainFrame.screenDim);
+		this.add( Keyano , Constraints );
 	}
 	
 	public TromboneGUI getTromboneGUI(){
 		return this.myTromboneGUI;
 	}
+	
+	public Ivory getIvory(){
+		return this.Keyano;
+	}
+
 }

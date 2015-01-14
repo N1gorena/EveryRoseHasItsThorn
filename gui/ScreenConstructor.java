@@ -1,5 +1,8 @@
 package gui;
 
+import gui.Ivory.Ivory;
+import gui.tromboneScreen.TromboneGUI;
+
 import java.util.Scanner;
 
 import javax.swing.JFrame;
@@ -13,25 +16,10 @@ public class ScreenConstructor {
 		mainFrame.setVisible(true);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		Scanner userInput = new Scanner(System.in);
+		//TromboneGUI instrument = mainFrame.getInstrumentGUI();
 		
-		boolean t = true;
-		while(t){
-			int x = userInput.nextInt();
-			if( x > 0 ){
-				mainFrame.moveSlide(-5.0f);
-
-			}
-			else{
-				mainFrame.moveSlide(0.0f);
-
-			}
-			if(x == -1 ){
-				t = false;
-			}
-		}
+		//Ivory keyboardInput = mainFrame.getIvoryInput();
 		
-	
 	}
 
 }

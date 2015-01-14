@@ -66,4 +66,11 @@ public class Note {
 	public int getLength(){
 		return this.length;
 	}
+
+	public void setVolume(int volume2) {
+		// TODO Auto-generated method stub
+		this.volume = volume2;
+		return;
+		
+	}
 }

@@ -112,7 +112,7 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 			
 				//OuterSlide section
 					double trombHeight = 0.5f;
-					double trombInnerOffset = -0.05f;
+					double trombInnerOffset = -0.1f;
 					double seperationDistance = 3.0f;
 					double slideLength = 15.0f;
 					

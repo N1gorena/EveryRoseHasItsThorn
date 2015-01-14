@@ -1,6 +1,8 @@
 package gui;
 
+import gui.Ivory.Ivory;
 import gui.roseLock.RoseLock;
+import gui.tromboneScreen.TromboneGUI;
 import gui.tromboneScreen.TromboneScreen;
 
 import java.awt.BorderLayout;
@@ -38,12 +40,18 @@ public class MainFrame extends JFrame {
 		
 		this.instrumentScreen = new TromboneScreen(this.getContentPane());
 		this.add(instrumentScreen,"TEST");
+		
 	}
 
 	public void cardSwap(String string) {
 		CardLayout myCL = (CardLayout) this.getContentPane().getLayout();
 		myCL.show(this.getContentPane(), "TEST");
 	}
+	
+	
+	public Ivory getIvoryInput(){
+		return this.instrumentScreen.getIvory();
+	};
 	
 	public void moveSlide(double dist){
 		instrumentScreen.getTromboneGUI().setOffset(dist);
