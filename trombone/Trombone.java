@@ -37,8 +37,8 @@ public class Trombone {
 		T_bone.noteOn(n.MIDINoteNumber(), n.getVolume());
 		return;
 	}
-	public void endNotes(){
-		T_bone.allNotesOff();
+	public void endNote(Note n){
+		T_bone.noteOff(n.MIDINoteNumber(), n.getVolume());
 		return;
 	}
 	

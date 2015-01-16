@@ -22,7 +22,9 @@ import trombone.Trombone;
 public class Ivory extends JPanel implements KeyListener,ActionListener{
 	
 	TromboneGUI ivGui = null;
-	private final int volume = 300;
+	private final int volume = 50;
+	
+	private Map<Character,Boolean> notesOn = null; 
 	
 	private static final Map<Character,Note> whiteBones; 
 	static{
@@ -49,7 +51,8 @@ public class Ivory extends JPanel implements KeyListener,ActionListener{
 		this.keyboard = new JTextField(20);
 		this.keyboard.addKeyListener((java.awt.event.KeyListener) this);
 		this.keyboard.setText(string);
-		//keyboard.setFocusTraversalKeysEnabled(false);
+		
+		this.notesOn = new HashMap<Character,Boolean>();
 		
 		this.add(keyboard);
 		
@@ -65,20 +68,51 @@ public class Ivory extends JPanel implements KeyListener,ActionListener{
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		Note toPlay = whiteBones.get(e.getKeyChar());
-		toPlay.setVolume(this.volume);
-		try {
-			sounder.playNote(toPlay);
-		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		char keyPressed = e.getKeyChar();
+		if(this.notesOn.containsKey(keyPressed)){
+			if(!notesOn.get(keyPressed)){
+				this.notesOn.put(keyPressed, true);
+				Note toPlay = whiteBones.get(keyPressed);
+				toPlay.setVolume(this.volume);
+				try {
+					sounder.playNote(toPlay);
+					System.out.println("Playing");
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+		}
+		else{
+			this.notesOn.put(keyPressed, true);
+			Note toPlay = whiteBones.get(e.getKeyChar());
+			toPlay.setVolume(this.volume);
+			try {
+				sounder.playNote(toPlay);
+				System.out.println("Playing");
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		sounder.endNotes();
+		char keyReleased = e.getKeyChar();
+		if(this.notesOn.get(keyReleased)){
+			
+			Note toEnd = whiteBones.get(e.getKeyChar());
+			toEnd.setVolume(this.volume);
+			sounder.endNote(toEnd);
+			this.notesOn.put(keyReleased, false);
+			System.out.println("stopping");
+			
+			
+		}
+		
 	}
 
 	@Override
