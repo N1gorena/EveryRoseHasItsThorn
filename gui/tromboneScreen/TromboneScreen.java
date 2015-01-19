@@ -28,6 +28,7 @@ public class TromboneScreen extends JPanel {
 		this.setLayout(new GridBagLayout());
 		this.setSize(mf.getSize());
 		
+		//Create a Trombone instrument(object) that we will use to make sound
 		Trombone RTrombone = null; 
 		try {
 			RTrombone = new Trombone();
@@ -35,10 +36,12 @@ public class TromboneScreen extends JPanel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		//
+		//Setting up a JOGL GUI panel TODO convert to canvas in TromboneGUI
 		GLProfile glprofile = GLProfile.getDefault();
 		GLCapabilities glcapabilities = new GLCapabilities(glprofile);
 		this.myTromboneGUI = new TromboneGUI(RTrombone,glcapabilities);
+		//Place The Trombone GUI in its proper space
 		GridBagConstraints trombGUIConstraints = new GridBagConstraints();
 		trombGUIConstraints.gridx = 0;
 		trombGUIConstraints.gridy = 0;
@@ -46,11 +49,10 @@ public class TromboneScreen extends JPanel {
 		trombGUIConstraints.weighty = 0.75;
 		trombGUIConstraints.anchor = GridBagConstraints.FIRST_LINE_START;
 		trombGUIConstraints.fill = GridBagConstraints.BOTH;
-		//JButton testButton = new JButton("Fuck");
 		myTromboneGUI.setSize(MainFrame.screenDim);
 		this.add(myTromboneGUI, trombGUIConstraints);
 		
-		
+		//TODO
 		//ControlsGUI controls = new ControlsGUI();
 		GridBagConstraints controlsConstraints = new GridBagConstraints();
 		controlsConstraints.gridx = 1;
@@ -62,8 +64,9 @@ public class TromboneScreen extends JPanel {
 		JButton testButton2 = new JButton("Fuck");
 		testButton2.setSize(MainFrame.screenDim);
 		this.add(testButton2, controlsConstraints);
+		//ENDTODO 
 		
-		//bottomGUI bGUI = new bGUI();
+		//Setup and place keys for the trombone screen
 		GridBagConstraints Constraints = new GridBagConstraints();
 		Constraints.gridx = 0;
 		Constraints.gridy = 1;
@@ -73,11 +76,19 @@ public class TromboneScreen extends JPanel {
 		Constraints.fill = GridBagConstraints.BOTH;
 		Constraints.gridwidth = 2;
 		
-		this.Keyano = new Ivory("");
+		this.Keyano = new Ivory("" , this);
 		this.Keyano.setInstrument(this.myTromboneGUI);
 		Keyano.setSize(MainFrame.screenDim);
 		this.add( Keyano , Constraints );
+		//
 	}
+	
+	public void reflectNote(char c){
+		double offSet = TromboneGUI.slideNoteOffset.get(c);
+		this.myTromboneGUI.setOffset(offSet);
+		return;
+	}
+
 	
 	public TromboneGUI getTromboneGUI(){
 		return this.myTromboneGUI;

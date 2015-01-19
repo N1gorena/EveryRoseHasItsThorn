@@ -8,6 +8,8 @@ import javax.swing.JPanel;
 import trombone.Trombone;
 
 import java.lang.Math.*;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.media.opengl.*;
 import javax.media.opengl.awt.GLCanvas;
@@ -25,6 +27,17 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 	private FPSAnimator animator; 
 	private GLU glu;
 	private double offSet;
+	public static Map<Character,Double> slideNoteOffset = null;
+	static{ 
+		slideNoteOffset = new HashMap<Character , Double>();
+		slideNoteOffset.put('a', 0.0);
+		slideNoteOffset.put('b', -3.25);
+		slideNoteOffset.put('c', -6.75);
+		slideNoteOffset.put('d', -10.5);
+		slideNoteOffset.put('e', -14.5);
+		slideNoteOffset.put('f', -18.75);
+		slideNoteOffset.put('g', -23.25);
+	}
 	private static enum Axis{incX,decX,incY,decY,incZ,decZ};
 	private static enum Plane{XY,XZ,YX,YZ,ZX,ZY};
 	
@@ -75,12 +88,12 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 		    //Z neg = Spin axis Clockwise from front LeftHanded
 	    
 	    	gl.glRotatef(35, 1.0f,0.0f,0.0f);
-	    	gl.glRotatef(35, 0.0f,1.0f,0.0f);
+	    	gl.glRotatef(15, 0.0f,1.0f,0.0f);
 	    	//gl.glRotatef(90, 0.0f,1.0f,0.0f);
 	    
 	    
 	    	//Negative means Positive?
-		    gl.glTranslatef( 0.0f , -12.5f,-12.5f);
+		    gl.glTranslatef( 0.0f , -20.5f,-20.5f);
 	    	//gl.glTranslatef(0.0f, -3.0f ,0.0f);
 		   
 	    //Brush
@@ -112,7 +125,7 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 			
 				//OuterSlide section
 					double trombHeight = 0.5f;
-					double trombInnerOffset = -0.1f;
+					double trombInnerOffset = -0.2f;
 					double seperationDistance = 3.0f;
 					double slideLength = 15.0f;
 					
@@ -1493,5 +1506,9 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 
 	public void setOffset(double offSet){
 		this.offSet = offSet;
+	}
+
+	public static double getSlideNoteOffset(char c) {
+		return -5.0f;
 	}
 }

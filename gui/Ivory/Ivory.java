@@ -1,6 +1,8 @@
 package gui.Ivory;
 
+import gui.MainFrame;
 import gui.tromboneScreen.TromboneGUI;
+import gui.tromboneScreen.TromboneScreen;
 
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
@@ -22,6 +24,7 @@ import trombone.Trombone;
 public class Ivory extends JPanel implements KeyListener,ActionListener{
 	
 	TromboneGUI ivGui = null;
+	TromboneScreen instrumentScreen;
 	private final int volume = 50;
 	
 	private Map<Character,Boolean> notesOn = null; 
@@ -36,7 +39,7 @@ public class Ivory extends JPanel implements KeyListener,ActionListener{
 		whiteBones.put('d', new Note("D4", 0, 0));
 		whiteBones.put('e', new Note("E4", 0, 0));
 		whiteBones.put('f', new Note("F4", 0, 0));
-		whiteBones.put('a', new Note("G4", 0, 0));
+		whiteBones.put('g', new Note("G4", 0, 0));
 		
 	}
 	
@@ -46,8 +49,10 @@ public class Ivory extends JPanel implements KeyListener,ActionListener{
 	
 	
 	
-	public Ivory(String string) {
+	public Ivory(String string , TromboneScreen instrumentScreen) {
 		// TODO Auto-generated constructor stub
+		this.instrumentScreen = instrumentScreen;
+		
 		this.keyboard = new JTextField(20);
 		this.keyboard.addKeyListener((java.awt.event.KeyListener) this);
 		this.keyboard.setText(string);
@@ -69,6 +74,9 @@ public class Ivory extends JPanel implements KeyListener,ActionListener{
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		char keyPressed = e.getKeyChar();
+		
+		instrumentScreen.reflectNote(e.getKeyChar());
+		
 		if(this.notesOn.containsKey(keyPressed)){
 			if(!notesOn.get(keyPressed)){
 				this.notesOn.put(keyPressed, true);
