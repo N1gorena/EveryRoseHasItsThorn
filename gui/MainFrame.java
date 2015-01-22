@@ -30,7 +30,7 @@ public class MainFrame extends JFrame {
 		this.setTitle("8-Bit Trombone");
 		this.setAlwaysOnTop(true);
 		this.setVisible(true);
-		this.setPreferredSize(screenDim);
+		//this.setPreferredSize(screenDim);
 		this.setResizable(false);
 		this.setLayout(new CardLayout());		
 		//
@@ -52,7 +52,9 @@ public class MainFrame extends JFrame {
 		 * the content frame, and in this case a trombone
 		 */
 		this.instrumentScreen = new TromboneScreen(this.getContentPane());
+		
 		this.add(instrumentScreen,"TEST");
+		
 		
 	}
 

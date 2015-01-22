@@ -3,9 +3,18 @@ package gui;
 import gui.Ivory.Ivory;
 import gui.tromboneScreen.TromboneGUI;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.util.Scanner;
 
+import javax.media.opengl.GLCapabilities;
+import javax.media.opengl.GLProfile;
+import javax.media.opengl.awt.GLCanvas;
+import javax.sound.midi.MidiUnavailableException;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import trombone.Trombone;
 
 public class ScreenConstructor {
 	
@@ -19,6 +28,7 @@ public class ScreenConstructor {
 		MainFrame mainFrame = new MainFrame();
 		mainFrame.setVisible(true);				//Set visible so program can be seen.
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	//Set default close operation to avoid issues.
+		
 		
 		//TromboneGUI instrument = mainFrame.getInstrumentGUI();
 		

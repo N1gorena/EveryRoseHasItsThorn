@@ -27,7 +27,6 @@ public class TromboneScreen extends JPanel {
 		this.setBackground(Color.BLUE);
 		this.setLayout(new GridBagLayout());
 		this.setSize(mf.getSize());
-		
 		//Create a Trombone instrument(object) that we will use to make sound
 		Trombone RTrombone = null; 
 		try {
@@ -40,25 +39,30 @@ public class TromboneScreen extends JPanel {
 		//Setting up a JOGL GUI panel TODO convert to canvas in TromboneGUI
 		GLProfile glprofile = GLProfile.getDefault();
 		GLCapabilities glcapabilities = new GLCapabilities(glprofile);
+	
 		this.myTromboneGUI = new TromboneGUI(RTrombone,glcapabilities);
 		//Place The Trombone GUI in its proper space
 		GridBagConstraints trombGUIConstraints = new GridBagConstraints();
 		trombGUIConstraints.gridx = 0;
 		trombGUIConstraints.gridy = 0;
-		trombGUIConstraints.weightx = 0.75;
-		trombGUIConstraints.weighty = 0.75;
+		trombGUIConstraints.weightx = 0.4;
+		trombGUIConstraints.weighty = 0.0;
 		trombGUIConstraints.anchor = GridBagConstraints.FIRST_LINE_START;
 		trombGUIConstraints.fill = GridBagConstraints.BOTH;
-		myTromboneGUI.setSize(MainFrame.screenDim);
-		this.add(myTromboneGUI, trombGUIConstraints);
 		
-		//TODO
+		this.myTromboneGUI.setSize(500 ,700);
+		this.myTromboneGUI.setPreferredSize(new Dimension(500,700));
+		this.myTromboneGUI.setMaximumSize(new Dimension(500,700));
+		this.add(this.myTromboneGUI, trombGUIConstraints);
+		System.out.println(this.myTromboneGUI.getSize().toString());
+		
+		//End TODO
 		//ControlsGUI controls = new ControlsGUI();
 		GridBagConstraints controlsConstraints = new GridBagConstraints();
 		controlsConstraints.gridx = 1;
 		controlsConstraints.gridy = 0;
 		controlsConstraints.weightx = 0.25;
-		controlsConstraints.weighty = 0.75;
+		controlsConstraints.weighty = 0.0;
 		controlsConstraints.anchor = GridBagConstraints.FIRST_LINE_START;
 		controlsConstraints.fill = GridBagConstraints.BOTH;
 		JButton testButton2 = new JButton("Fuck");

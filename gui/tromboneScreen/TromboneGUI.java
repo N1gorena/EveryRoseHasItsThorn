@@ -2,6 +2,7 @@ package gui.tromboneScreen;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 
 import javax.swing.JPanel;
 
@@ -21,7 +22,7 @@ import static javax.media.opengl.GL2.*; // GL2 constants
 
 import com.jogamp.opengl.util.FPSAnimator;
 
-public class TromboneGUI extends GLJPanel implements GLEventListener {
+public class TromboneGUI extends GLCanvas implements GLEventListener {
 	private Trombone myInstrument;
 	private static final int FPS = 60;
 	private FPSAnimator animator; 
@@ -43,6 +44,8 @@ public class TromboneGUI extends GLJPanel implements GLEventListener {
 	
 	public TromboneGUI(Trombone Tromby, GLCapabilities glcapabilities){
 		super(glcapabilities);
+		//this.setMinimumSize(new Dimension(100,100));
+		//this.setSize(100, 100);
 		if(Tromby == null){
 			System.out.println("SOMETHING WENT WRONG");
 			Thread.dumpStack();
