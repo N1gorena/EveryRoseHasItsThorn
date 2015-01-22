@@ -37,7 +37,7 @@ public class TromboneGUI extends GLCanvas implements GLEventListener {
 		slideNoteOffset.put('d', -10.5);
 		slideNoteOffset.put('e', -14.5);
 		slideNoteOffset.put('f', -18.75);
-		slideNoteOffset.put('g', -23.25);
+		slideNoteOffset.put('g', -22.25);
 	}
 	private static enum Axis{incX,decX,incY,decY,incZ,decZ};
 	private static enum Plane{XY,XZ,YX,YZ,ZX,ZY};
@@ -130,37 +130,37 @@ public class TromboneGUI extends GLCanvas implements GLEventListener {
 					double trombHeight = 0.5f;
 					double trombInnerOffset = -0.2f;
 					double seperationDistance = 3.0f;
-					double slideLength = 15.0f;
+					double slideLength = 24.0f;
 					
 					
 					gl.glColor3d(0.71f,0.65f,0.26f);
 					
-					createSquareTube( gl, trombHeight , -trombHeight + offSet , trombHeight , 0.0f , Axis.decZ , seperationDistance );
+					createSquareTube2( gl, trombHeight , -trombHeight + offSet , trombHeight , 0.0f , Axis.decZ , seperationDistance );
 					createNegativeTravelElbow( gl , trombHeight , offSet , 0.0f , 0.0f , Plane.ZY , 1 );//Near side of end of slide
 					createNegativeTravelElbow( gl , trombHeight , offSet , 0.0f , -3.0f , Plane.ZY , 2 );//Far side of end of slide
-					createSquareTube( gl , trombHeight , slideLength + offSet , trombHeight , -seperationDistance , Axis.decX, slideLength );//Far side of slide
-					createSquareTube( gl , trombHeight , slideLength + offSet, trombHeight , trombHeight , Axis.decX, slideLength );//Near side of slide
-					createSquareTube( gl , trombHeight , slideLength - trombHeight + offSet ,trombHeight, 0.0f, Axis.decZ, seperationDistance );
+					createSquareTube2( gl , trombHeight , slideLength + offSet , trombHeight , -seperationDistance , Axis.decX, slideLength );//Far side of slide
+					createSquareTube2( gl , trombHeight , slideLength + offSet, trombHeight , trombHeight , Axis.decX, slideLength );//Near side of slide
+					createSquareTube2( gl , trombHeight , slideLength - trombHeight + offSet ,trombHeight, 0.0f, Axis.decZ, seperationDistance );
 				//MouthPiece
 					double mouthPieceLength = 3.0f;
 					gl.glColor3d( 0.765625f , 0.77734375f , 0.805f );
 					
-					createSquareTube( gl , trombHeight , slideLength + mouthPieceLength , trombHeight , -seperationDistance ,  Axis.decX, mouthPieceLength );
+					createSquareTube2( gl , trombHeight , slideLength + mouthPieceLength , trombHeight , -seperationDistance ,  Axis.decX, mouthPieceLength );
 				//InnerSlide TODO
 					
-					createSquareTube( gl , trombHeight + trombInnerOffset , slideLength, trombHeight + trombInnerOffset , -seperationDistance + trombInnerOffset , Axis.decX, (slideLength*2.0f)/3.0f );//Far side of slide
-					createSquareTube( gl , trombHeight + trombInnerOffset , slideLength, trombHeight + trombInnerOffset , trombHeight + trombInnerOffset , Axis.decX, (slideLength*2.0f)/3.0f );//Near side of slide
+					createSquareTube2( gl , trombHeight + trombInnerOffset , slideLength, trombHeight + trombInnerOffset , -seperationDistance + trombInnerOffset , Axis.decX, (slideLength-1) );//Far side of slide
+					createSquareTube2( gl , trombHeight + trombInnerOffset , slideLength, trombHeight + trombInnerOffset , trombHeight + trombInnerOffset , Axis.decX, (slideLength-1) );//Near side of slide
 				//TuningSection
-					double sectionLength = 7.5f;
+					double sectionLength = 15.5f;
 					double verticalSeperation = 3.0f;
 					gl.glColor3d(0.71f,0.65f,0.26f);
 					
-					createSquareTube( gl , trombHeight , slideLength + sectionLength , trombHeight , trombHeight , Axis.decX , sectionLength );//Bottom
+					createSquareTube2( gl , trombHeight , slideLength + sectionLength , trombHeight , trombHeight , Axis.decX , sectionLength );//Bottom
 					createNegativeTravelElbow( gl , trombHeight , slideLength + sectionLength , trombHeight , 0.0f, Plane.XZ , 1);//Turn up
-					createSquareTube( gl , trombHeight , slideLength + sectionLength + trombHeight , trombHeight + verticalSeperation , trombHeight , Axis.decY, verticalSeperation );//Straight up
+					createSquareTube2( gl , trombHeight , slideLength + sectionLength + trombHeight , trombHeight + verticalSeperation , trombHeight , Axis.decY, verticalSeperation );//Straight up
 					createPositiveTravelElbow( gl , trombHeight, slideLength + sectionLength  , trombHeight + verticalSeperation , 0.0f , Plane.XZ , 1);//Turn Back
-					createSquareTube( gl , trombHeight , slideLength + (sectionLength)/2 , trombHeight + verticalSeperation, trombHeight , Axis.decY , verticalSeperation);//Spanning tube
-					createSquareTube( gl , trombHeight , slideLength + sectionLength , trombHeight + verticalSeperation + trombHeight, trombHeight , Axis.decX , sectionLength );//Head Back/Top
+					createSquareTube2( gl , trombHeight , slideLength + (sectionLength)/2 , trombHeight + verticalSeperation, trombHeight , Axis.decY , verticalSeperation);//Spanning tube
+					createSquareTube2( gl , trombHeight , slideLength + sectionLength , trombHeight + verticalSeperation + trombHeight, trombHeight , Axis.decX , sectionLength );//Head Back/Top
 				//Bell
 					double Cx = slideLength;
 					double Cy = verticalSeperation + (trombHeight/2.0f) + trombHeight;
@@ -218,7 +218,7 @@ public class TromboneGUI extends GLCanvas implements GLEventListener {
 	//Takes in a sideLength, a "brush", the top left coordinate in x,y,z and enums for orientation.
 	//Square is drawn expanding in leading enum direction by amount=sideLength,
 	//and then expanding in second enum direction by amount=sideLength;
-	private void createSquare(double sideLength, GL2 gl, double TLx, double TLy, double TLz, Axis expansion1, Axis expansion2){
+	private void createSquare(GL2 gl, double sideLength, double TLx, double TLy, double TLz, Axis expansion1, Axis expansion2){
 	    gl.glBegin(GL2.GL_QUADS);
 	    gl.glVertex3d(TLx,TLy,TLz);
 	    
@@ -272,6 +272,65 @@ public class TromboneGUI extends GLCanvas implements GLEventListener {
 	    }
 	    gl.glEnd();
 	}
+	
+	//Assuming Quads
+	//Takes in ah, a "brush", the top left coordinate in x,y,z and enums for orientation.
+	//Square is drawn expanding in leading enum direction by amount=height,
+	//and then expanding in second enum direction by amount=width;
+	private void createRectangle(GL2 gl, double height , double width , double TLx , double TLy , double TLz , Axis expansion1 , Axis expansion2){
+		    gl.glBegin(GL2.GL_QUADS);
+		    gl.glVertex3d(TLx,TLy,TLz);
+		    
+		    double x = TLx;
+		    double y = TLy;
+		    double z = TLz;
+		    switch(expansion1){
+		    	case incX:
+	    			x = TLx + height;
+	    			gl.glVertex3d(x, TLy, TLz); 
+	    			break;
+		    	case decX:
+		    		x = TLx - height;
+	    			gl.glVertex3d(x, TLy, TLz); 
+	    			break;
+		    	case incY:
+		    		y = TLy + height;
+	    			gl.glVertex3d(TLx, y, TLz); 
+	    			break;
+		    	case decY:
+		    		y = TLy - height;
+	    			gl.glVertex3d(TLx, y, TLz); 
+	    			break;
+		    	case incZ:
+		    		z = TLz + height;
+	    			gl.glVertex3d(TLx, TLy, z); 
+	    			break;
+		    	case decZ:
+		    		z = TLz - height;
+	    			gl.glVertex3d(TLx, TLy, z); 
+	    			break;
+		    	default:System.out.println("fucked up CreateSquare");break;
+		    }
+		    switch(expansion2){
+		    	case incX:gl.glVertex3d(TLx + width, y, z); break;
+		    	case decX:gl.glVertex3d(TLx - width, y, z); break;
+		    	case incY:gl.glVertex3d(x, TLy + width, z); break;
+		    	case decY:gl.glVertex3d(x, TLy - width, z); break;
+		    	case incZ:gl.glVertex3d(x, y, TLz + width); break;
+		    	case decZ:gl.glVertex3d(x, y, TLz - width); break;
+		    	default:System.out.println("fucked up CreateSquare");break;
+		    }
+		    switch(expansion2){
+		    	case incX:gl.glVertex3d(TLx + width, TLy, TLz); break;
+		    	case decX:gl.glVertex3d(TLx - width, TLy, TLz); break;
+		    	case incY:gl.glVertex3d(TLx, TLy + width, TLz); break;
+		    	case decY:gl.glVertex3d(TLx, TLy - width, TLz); break;
+		    	case incZ:gl.glVertex3d(TLx, TLy, TLz + width); break;
+		    	case decZ:gl.glVertex3d(TLx, TLy, TLz - width); break;
+		    	default:System.out.println("fucked up CreateSquare");break;
+		    }
+		    gl.glEnd();
+		}
 	
 	//TODO Most Recent
 	//Creating elbow by giving center coordinates and a plane and a quadrant in said plane.
@@ -923,6 +982,39 @@ public class TromboneGUI extends GLCanvas implements GLEventListener {
 		brush.glEnd();
 	}
 	
+	
+	//Defaults to traveling in negative direction because its the same thing as traveling in positive direction
+	//+Y axis is Up when traveling x or z axis
+	//+Z axis is Up when traveling y axis.
+	private void createSquareTube2(GL2 brush, double sideLength, double TLx, double TLy, double TLz, Axis direction, double stretchLength){
+		//-x
+		if(direction == Axis.incX || direction == Axis.decX){
+		createSquare(brush, sideLength , TLx,TLy,TLz,Axis.decZ,Axis.decY);
+		createRectangle(brush,sideLength,stretchLength,TLx,TLy,TLz,Axis.decY,Axis.decX);
+		createRectangle(brush,sideLength,stretchLength,TLx,TLy,TLz,Axis.decZ,Axis.decX);
+		createRectangle(brush,sideLength,stretchLength,TLx,TLy - sideLength,TLz-sideLength,Axis.incZ,Axis.decX);
+		createRectangle(brush,sideLength,stretchLength,TLx,TLy - sideLength,TLz-sideLength,Axis.incY,Axis.decX);
+		createSquare(brush,sideLength, TLx - stretchLength,TLy,TLz,Axis.decZ,Axis.decY);
+		}
+		//-y
+		else if(direction == Axis.incY || direction == Axis.decY){
+		createSquare(brush, sideLength , TLx,TLy,TLz,Axis.decX,Axis.decZ);
+		createRectangle(brush,sideLength,stretchLength,TLx,TLy,TLz,Axis.decX,Axis.decY);
+		createRectangle(brush,sideLength,stretchLength,TLx,TLy,TLz,Axis.decZ,Axis.decY);
+		createRectangle(brush,sideLength,stretchLength,TLx - sideLength,TLy,TLz-sideLength,Axis.incZ,Axis.decY);
+		createRectangle(brush,sideLength,stretchLength,TLx - sideLength,TLy,TLz-sideLength,Axis.incX,Axis.decY);
+		createSquare(brush,sideLength, TLx,TLy - stretchLength,TLz,Axis.decX,Axis.decZ);
+		}
+		//-z
+		else if(direction == Axis.incZ || direction == Axis.decZ){
+		createSquare(brush, sideLength , TLx,TLy,TLz,Axis.incX,Axis.decY);
+		createRectangle(brush,sideLength,stretchLength,TLx,TLy,TLz,Axis.incX,Axis.decZ);
+		createRectangle(brush,sideLength,stretchLength,TLx,TLy,TLz,Axis.decY,Axis.decZ);
+		createRectangle(brush,sideLength,stretchLength,TLx+sideLength,TLy - sideLength,TLz,Axis.decX,Axis.decZ);
+		createRectangle(brush,sideLength,stretchLength,TLx+sideLength,TLy - sideLength,TLz,Axis.incY,Axis.decZ);
+		createSquare(brush,sideLength, TLx,TLy,TLz - stretchLength,Axis.incX,Axis.decY);
+		}
+	}
 	//TODO Current if need be, not Done, just did the one I needed so far.
 	//Creating elbow by giving center coordinates and a plane and a quadrant in said plane.
 	//From center point, create elbow will create a square in the plane in the quadrant using the given center as a (0,0,0) point

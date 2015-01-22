@@ -54,7 +54,6 @@ public class TromboneScreen extends JPanel {
 		this.myTromboneGUI.setPreferredSize(new Dimension(500,700));
 		this.myTromboneGUI.setMaximumSize(new Dimension(500,700));
 		this.add(this.myTromboneGUI, trombGUIConstraints);
-		System.out.println(this.myTromboneGUI.getSize().toString());
 		
 		//End TODO
 		//ControlsGUI controls = new ControlsGUI();
