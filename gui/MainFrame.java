@@ -61,6 +61,8 @@ public class MainFrame extends JFrame {
 	public void cardSwap(String string) {
 		CardLayout myCL = (CardLayout) this.getContentPane().getLayout();
 		myCL.show(this.getContentPane(), "TEST");
+		this.instrumentScreen.setFocusable(true);
+		this.instrumentScreen.focus();
 	}
 	
 	

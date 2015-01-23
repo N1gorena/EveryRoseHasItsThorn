@@ -4,6 +4,7 @@ import gui.MainFrame;
 import gui.tromboneScreen.TromboneGUI;
 import gui.tromboneScreen.TromboneScreen;
 
+import java.awt.Color;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,7 +22,7 @@ import java.util.Map;
 import trombone.Note;
 import trombone.Trombone;
 
-public class Ivory extends JPanel implements KeyListener,ActionListener{
+public class Ivory extends JPanel{
 	
 	TromboneGUI ivGui = null;
 	TromboneScreen instrumentScreen;
@@ -29,7 +30,7 @@ public class Ivory extends JPanel implements KeyListener,ActionListener{
 	
 	private Map<Character,Boolean> notesOn = null; 
 	
-	private static final Map<Character,Note> whiteBones; 
+	public static final Map<Character,Note> whiteBones; 
 	static{
 		whiteBones = new HashMap<Character,Note>();
 		
@@ -50,28 +51,29 @@ public class Ivory extends JPanel implements KeyListener,ActionListener{
 	
 	
 	public Ivory(String string , TromboneScreen instrumentScreen) {
+		this.setBackground(Color.PINK);
+		this.setFocusable(true);
 		// TODO Auto-generated constructor stub
 		this.instrumentScreen = instrumentScreen;
 		
-		this.keyboard = new JTextField(20);
-		this.keyboard.addKeyListener((java.awt.event.KeyListener) this);
-		this.keyboard.setText(string);
 		
 		this.notesOn = new HashMap<Character,Boolean>();
 		
-		this.add(keyboard);
-		
 		try {
-			sounder = new Trombone();
+			this.sounder = new Trombone();
 		} catch (MidiUnavailableException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
+	public void setInstrument(TromboneGUI instrument){
+		this.ivGui = instrument;
+		return;
+	}
 
-	@Override
-	public void keyPressed(KeyEvent e) {
+
+	public void playKey(KeyEvent e) {
 		// TODO Auto-generated method stub
 		char keyPressed = e.getKeyChar();
 		
@@ -106,8 +108,8 @@ public class Ivory extends JPanel implements KeyListener,ActionListener{
 		}
 	}
 
-	@Override
-	public void keyReleased(KeyEvent e) {
+
+	public void releaseKey(KeyEvent e) {
 		// TODO Auto-generated method stub
 		char keyReleased = e.getKeyChar();
 		if(this.notesOn.get(keyReleased)){
@@ -120,26 +122,6 @@ public class Ivory extends JPanel implements KeyListener,ActionListener{
 			
 			
 		}
-		
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-		
-	}
-	
-	public void setInstrument(TromboneGUI instrument){
-		this.ivGui = instrument;
-		return;
 	}
 
 }

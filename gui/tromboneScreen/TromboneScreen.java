@@ -9,6 +9,10 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.GLProfile;
@@ -16,9 +20,10 @@ import javax.sound.midi.MidiUnavailableException;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import trombone.Note;
 import trombone.Trombone;
 
-public class TromboneScreen extends JPanel {
+public class TromboneScreen extends JPanel implements KeyListener,ActionListener{
 	
 	private TromboneGUI myTromboneGUI = null;
 	private Ivory Keyano = null;
@@ -80,6 +85,7 @@ public class TromboneScreen extends JPanel {
 		Constraints.gridwidth = 2;
 		
 		this.Keyano = new Ivory("" , this);
+		this.Keyano.addKeyListener(this);
 		this.Keyano.setInstrument(this.myTromboneGUI);
 		Keyano.setSize(MainFrame.screenDim);
 		this.add( Keyano , Constraints );
@@ -99,6 +105,34 @@ public class TromboneScreen extends JPanel {
 	
 	public Ivory getIvory(){
 		return this.Keyano;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent arg0) {
+		this.Keyano.playKey(arg0);
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		this.Keyano.releaseKey(arg0);
+	}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+	public void focus(){
+		this.Keyano.grabFocus();
+		return;
 	}
 
 }
