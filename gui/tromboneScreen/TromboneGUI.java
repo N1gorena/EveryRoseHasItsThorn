@@ -84,24 +84,28 @@ public class TromboneGUI extends GLCanvas implements GLEventListener {
 	    gl.glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear color and depth buffers
 	    gl.glLoadIdentity();  // reset the model-view matrix
 	    
+	    float seperationDistance = 3.0f;
+	    float slideLength = 24.0f;
+	    
 	      // ----- Your OpenGL rendering code here (Render a white triangle for testing) -----
 	    //Camera
 		    //X neg = Spin axis towards you from sides
 		    //Y neg = Look Left
 		    //Z neg = Spin axis Clockwise from front LeftHanded
-	    
-	    	gl.glRotatef(35, 1.0f,0.0f,0.0f);
-	    	gl.glRotatef(15, 0.0f,1.0f,0.0f);
-	    	//gl.glRotatef(90, 0.0f,1.0f,0.0f);
-	    
-	    
+	    	//Done Bottom to Top
+	    		
+	    		
+	    		//Missing old working viewpoint
+	    		gl.glRotatef(90, 0.0f, -1.0f, 0.0f);
+	    	
 	    	//Negative means Positive?
-		    gl.glTranslatef( 0.0f , -20.5f,-20.5f);
-	    	//gl.glTranslatef(0.0f, -3.0f ,0.0f);
+	    		
+	    		gl.glTranslatef( -slideLength - 5.5f , -2.4f, seperationDistance);
+		    	//gl.glTranslatef( 0.0f , -30.5f,-30.5f);old translation
 		   
 	    //Brush
 	    	//Orienting Axes
-			    gl.glBegin(GL.GL_LINES); // draw using triangles
+			   /*gl.glBegin(GL.GL_LINES); // draw using triangles
 			    //Positive Axes 
 			    gl.glColor3d(0.0f, 0.0f, 1.0f);
 			    gl.glVertex3d(0, 0, 0);
@@ -123,15 +127,13 @@ public class TromboneGUI extends GLCanvas implements GLEventListener {
 			    gl.glVertex3d(0, 0, 0);
 			    gl.glVertex3d(0, 0, -1);
 			    gl.glEnd();
+			    */
 			//Background Done    
 		    //Object Trombone
 			
 				//OuterSlide section
 					double trombHeight = 0.5f;
-					double trombInnerOffset = -0.2f;
-					double seperationDistance = 3.0f;
-					double slideLength = 24.0f;
-					
+					double trombInnerOffset = -0.1f;
 					
 					gl.glColor3d(0.71f,0.65f,0.26f);
 					
@@ -140,6 +142,7 @@ public class TromboneGUI extends GLCanvas implements GLEventListener {
 					createNegativeTravelElbow( gl , trombHeight , offSet , 0.0f , -3.0f , Plane.ZY , 2 );//Far side of end of slide
 					createSquareTube2( gl , trombHeight , slideLength + offSet , trombHeight , -seperationDistance , Axis.decX, slideLength );//Far side of slide
 					createSquareTube2( gl , trombHeight , slideLength + offSet, trombHeight , trombHeight , Axis.decX, slideLength );//Near side of slide
+					createSquareTube2( gl , trombHeight , (slideLength-3.5f) + offSet ,trombHeight, 0.0f, Axis.decZ, seperationDistance );
 					createSquareTube2( gl , trombHeight , slideLength - trombHeight + offSet ,trombHeight, 0.0f, Axis.decZ, seperationDistance );
 				//MouthPiece
 					double mouthPieceLength = 3.0f;
@@ -148,8 +151,8 @@ public class TromboneGUI extends GLCanvas implements GLEventListener {
 					createSquareTube2( gl , trombHeight , slideLength + mouthPieceLength , trombHeight , -seperationDistance ,  Axis.decX, mouthPieceLength );
 				//InnerSlide TODO
 					
-					createSquareTube2( gl , trombHeight + trombInnerOffset , slideLength, trombHeight + trombInnerOffset , -seperationDistance + trombInnerOffset , Axis.decX, (slideLength-1) );//Far side of slide
-					createSquareTube2( gl , trombHeight + trombInnerOffset , slideLength, trombHeight + trombInnerOffset , trombHeight + trombInnerOffset , Axis.decX, (slideLength-1) );//Near side of slide
+					createSquareTube2( gl , trombHeight + (2*trombInnerOffset) , slideLength, trombHeight + trombInnerOffset , -seperationDistance + trombInnerOffset , Axis.decX, (slideLength-1) );//Far side of slide
+					createSquareTube2( gl , trombHeight + (2*trombInnerOffset) , slideLength, trombHeight + trombInnerOffset , trombHeight + trombInnerOffset , Axis.decX, (slideLength-1) );//Near side of slide
 				//TuningSection
 					double sectionLength = 15.5f;
 					double verticalSeperation = 3.0f;
