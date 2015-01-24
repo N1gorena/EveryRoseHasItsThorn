@@ -93,7 +93,11 @@ public class TromboneScreen extends JPanel implements KeyListener,ActionListener
 	}
 	
 	public void reflectNote(char c){
-		double offSet = TromboneGUI.slideNoteOffset.get(c);
+		double offSet = 0;
+		
+		if(TromboneGUI.slideNoteOffset.containsKey(c)){
+			offSet = TromboneGUI.slideNoteOffset.get(c);
+		}
 		this.myTromboneGUI.setOffset(offSet);
 		return;
 	}
@@ -115,12 +119,16 @@ public class TromboneScreen extends JPanel implements KeyListener,ActionListener
 
 	@Override
 	public void keyPressed(KeyEvent arg0) {
-		this.Keyano.playKey(arg0);
+		if(Ivory.whiteBones.containsKey(arg0.getKeyChar())){
+			this.Keyano.playKey(arg0);
+		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
-		this.Keyano.releaseKey(arg0);
+		if(Ivory.whiteBones.containsKey(arg0.getKeyChar())){
+			this.Keyano.releaseKey(arg0);
+		}
 	}
 
 	@Override
