@@ -37,13 +37,27 @@ public class Ivory extends JPanel{
 	static{
 		relativeLocationOfKeys = new HashMap<Character,Integer>();
 		
+		relativeLocationOfKeys.put('q', 14);
+		relativeLocationOfKeys.put('w', 15);
+		relativeLocationOfKeys.put('e', 16);
+		relativeLocationOfKeys.put('r', 17);
+		relativeLocationOfKeys.put('t', 18);
+		relativeLocationOfKeys.put('y', 19);
+		relativeLocationOfKeys.put('u', 20);
 		relativeLocationOfKeys.put('a', 21);
-		relativeLocationOfKeys.put('b', 22);
-		relativeLocationOfKeys.put('c', 23);
-		relativeLocationOfKeys.put('d', 24);
-		relativeLocationOfKeys.put('e', 25);
-		relativeLocationOfKeys.put('f', 26);
-		relativeLocationOfKeys.put('g', 27);
+		relativeLocationOfKeys.put('s', 22);
+		relativeLocationOfKeys.put('d', 23);
+		relativeLocationOfKeys.put('f', 24);
+		relativeLocationOfKeys.put('g', 25);
+		relativeLocationOfKeys.put('h', 26);
+		relativeLocationOfKeys.put('j', 27);
+		relativeLocationOfKeys.put('z', 28);
+		relativeLocationOfKeys.put('x', 29);
+		relativeLocationOfKeys.put('c', 30);
+		relativeLocationOfKeys.put('v', 31);
+		relativeLocationOfKeys.put('b', 32);
+		relativeLocationOfKeys.put('n', 33);
+		relativeLocationOfKeys.put('m', 34);
 		
 	}
 	
@@ -51,13 +65,27 @@ public class Ivory extends JPanel{
 	static{
 		whiteBones = new HashMap<Character,Note>();
 		
+		whiteBones.put('q', new Note("A3", 0, 0));
+		whiteBones.put('w', new Note("B3", 0, 0));
+		whiteBones.put('e', new Note("C3", 0, 0));
+		whiteBones.put('r', new Note("D3", 0, 0));
+		whiteBones.put('t', new Note("E3", 0, 0));
+		whiteBones.put('y', new Note("F3", 0, 0));
+		whiteBones.put('u', new Note("G3", 0, 0));
 		whiteBones.put('a', new Note("A4", 0, 0));
-		whiteBones.put('b', new Note("B4", 0, 0));
-		whiteBones.put('c', new Note("C4", 0, 0));
-		whiteBones.put('d', new Note("D4", 0, 0));
-		whiteBones.put('e', new Note("E4", 0, 0));
-		whiteBones.put('f', new Note("F4", 0, 0));
-		whiteBones.put('g', new Note("G4", 0, 0));
+		whiteBones.put('s', new Note("B4", 0, 0));
+		whiteBones.put('d', new Note("C4", 0, 0));
+		whiteBones.put('f', new Note("D4", 0, 0));
+		whiteBones.put('g', new Note("E4", 0, 0));
+		whiteBones.put('h', new Note("F4", 0, 0));
+		whiteBones.put('j', new Note("G4", 0, 0));
+		whiteBones.put('z', new Note("A5", 0, 0));
+		whiteBones.put('x', new Note("B5", 0, 0));
+		whiteBones.put('c', new Note("C5", 0, 0));
+		whiteBones.put('v', new Note("D5", 0, 0));
+		whiteBones.put('b', new Note("E5", 0, 0));
+		whiteBones.put('n', new Note("F5", 0, 0));
+		whiteBones.put('m', new Note("G5", 0, 0));
 		
 	}
 	

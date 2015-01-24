@@ -31,13 +31,27 @@ public class TromboneGUI extends GLCanvas implements GLEventListener {
 	public static Map<Character,Double> slideNoteOffset = null;
 	static{ 
 		slideNoteOffset = new HashMap<Character , Double>();
+		slideNoteOffset.put('q', 0.0);
+		slideNoteOffset.put('w', -3.25);
+		slideNoteOffset.put('e', -6.75);
+		slideNoteOffset.put('r', -10.5);
+		slideNoteOffset.put('t', -14.5);
+		slideNoteOffset.put('y', -18.75);
+		slideNoteOffset.put('u', -22.25);
 		slideNoteOffset.put('a', 0.0);
-		slideNoteOffset.put('b', -3.25);
+		slideNoteOffset.put('s', -3.25);
+		slideNoteOffset.put('d', -6.75);
+		slideNoteOffset.put('f', -10.5);
+		slideNoteOffset.put('g', -14.5);
+		slideNoteOffset.put('h', -18.75);
+		slideNoteOffset.put('j', -22.25);
+		slideNoteOffset.put('z', 0.0);
+		slideNoteOffset.put('x', -3.25);
 		slideNoteOffset.put('c', -6.75);
-		slideNoteOffset.put('d', -10.5);
-		slideNoteOffset.put('e', -14.5);
-		slideNoteOffset.put('f', -18.75);
-		slideNoteOffset.put('g', -22.25);
+		slideNoteOffset.put('v', -10.5);
+		slideNoteOffset.put('b', -14.5);
+		slideNoteOffset.put('n', -18.75);
+		slideNoteOffset.put('m', -22.25);
 	}
 	private static enum Axis{incX,decX,incY,decY,incZ,decZ};
 	private static enum Plane{XY,XZ,YX,YZ,ZX,ZY};
