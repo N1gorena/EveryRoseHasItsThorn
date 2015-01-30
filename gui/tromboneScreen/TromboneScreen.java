@@ -1,6 +1,7 @@
 package gui.tromboneScreen;
 
 import gui.MainFrame;
+import gui.Controls.Controller;
 import gui.Ivory.Ivory;
 
 import java.awt.BorderLayout;
@@ -27,7 +28,10 @@ public class TromboneScreen extends JPanel implements KeyListener,ActionListener
 	
 	private TromboneGUI myTromboneGUI = null;
 	private Ivory Keyano = null;
-	
+	private JButton incVolButton = null;
+	private JButton decVolButton = null;
+	private int discreteVolChange = 5;
+	private Controller controlsScreen = null;
 	public TromboneScreen(Container mf){
 		this.setBackground(Color.BLUE);
 		this.setLayout(new GridBagLayout());
@@ -60,20 +64,6 @@ public class TromboneScreen extends JPanel implements KeyListener,ActionListener
 		this.myTromboneGUI.setMaximumSize(new Dimension(500,700));
 		this.add(this.myTromboneGUI, trombGUIConstraints);
 		
-		//End TODO
-		//ControlsGUI controls = new ControlsGUI();
-		GridBagConstraints controlsConstraints = new GridBagConstraints();
-		controlsConstraints.gridx = 1;
-		controlsConstraints.gridy = 0;
-		controlsConstraints.weightx = 0.25;
-		controlsConstraints.weighty = 0.0;
-		controlsConstraints.anchor = GridBagConstraints.FIRST_LINE_START;
-		controlsConstraints.fill = GridBagConstraints.BOTH;
-		JButton testButton2 = new JButton("Fuck");
-		testButton2.setSize(MainFrame.screenDim);
-		this.add(testButton2, controlsConstraints);
-		//ENDTODO 
-		
 		//Setup and place keys for the trombone screen
 		GridBagConstraints Constraints = new GridBagConstraints();
 		Constraints.gridx = 0;
@@ -90,6 +80,20 @@ public class TromboneScreen extends JPanel implements KeyListener,ActionListener
 		Keyano.setSize(MainFrame.screenDim);
 		this.add( Keyano , Constraints );
 		//
+		
+		//End TODO
+		//ControlsGUI controls = new ControlsGUI();
+		GridBagConstraints controlsConstraints = new GridBagConstraints();
+		controlsConstraints.gridx = 1;
+		controlsConstraints.gridy = 0;
+		controlsConstraints.weightx = 0.25;
+		controlsConstraints.weighty = 0.0;
+		controlsConstraints.anchor = GridBagConstraints.FIRST_LINE_START;
+		controlsConstraints.fill = GridBagConstraints.BOTH;
+		this.controlsScreen = new Controller(this,this.Keyano);
+		controlsScreen.setSize(MainFrame.screenDim);
+		this.add(controlsScreen, controlsConstraints);
+		//ENDTODO 
 	}
 	
 	public void reflectNote(char c){
@@ -113,8 +117,18 @@ public class TromboneScreen extends JPanel implements KeyListener,ActionListener
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		
+		if(arg0.getSource() == this.incVolButton){
+			int newVolume = this.Keyano.getVolume() + this.discreteVolChange;
+			this.Keyano.setVolume(newVolume);
+			this.controlsScreen.volumeChange(newVolume);
+			this.Keyano.requestFocus();
+		}
+		else if(arg0.getSource() == this.decVolButton){
+			int newVolume = this.Keyano.getVolume() - this.discreteVolChange;
+			this.Keyano.setVolume(newVolume);
+			this.controlsScreen.volumeChange(newVolume);
+			this.Keyano.requestFocus();
+		}
 	}
 
 	@Override
@@ -141,6 +155,16 @@ public class TromboneScreen extends JPanel implements KeyListener,ActionListener
 	public void focus(){
 		this.Keyano.grabFocus();
 		return;
+	}
+
+	public void changeVolume(int i) {
+		// TODO Auto-generated method stub
+		this.Keyano.setVolume(this.Keyano.getVolume() + i);
+	}
+	
+	public void setVolButtons(JButton inc, JButton dec){
+		this.incVolButton = inc;
+		this.decVolButton = dec;
 	}
 
 }

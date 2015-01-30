@@ -29,7 +29,7 @@ public class Ivory extends JPanel{
 	
 	TromboneGUI ivGui = null;
 	TromboneScreen instrumentScreen;
-	private final int volume = 50;
+	private int volume = 50;
 	
 	private Map<Character,Boolean> notesOn = null;
 	
@@ -234,7 +234,6 @@ public class Ivory extends JPanel{
 				toPlay.setVolume(this.volume);
 				try {
 					sounder.playNote(toPlay);
-					System.out.println("Playing");
 				} catch (InterruptedException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -249,7 +248,6 @@ public class Ivory extends JPanel{
 			toPlay.setVolume(this.volume);
 			try {
 				sounder.playNote(toPlay);
-				System.out.println("Playing");
 			} catch (InterruptedException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -278,9 +276,6 @@ public class Ivory extends JPanel{
 				sounder.endNote(toEnd);
 				this.letKeyUp(e.getKeyChar());
 				this.notesOn.put(keyReleased, false);
-				System.out.println("stopping");
-				
-				
 			}
 		}
 	}
@@ -292,6 +287,14 @@ public class Ivory extends JPanel{
 		}
 		this.repaint();
 		
+	}
+	
+	public int getVolume(){
+		return this.volume;
+	}
+	
+	public void setVolume(int newVolume){
+		this.volume = newVolume;
 	}
 
 }
