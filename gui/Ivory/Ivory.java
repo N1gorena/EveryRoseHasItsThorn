@@ -300,21 +300,17 @@ public class Ivory extends JPanel{
 	}
 	
 	public void simulatePlay(Vector<CharNote> strokes){
+		
 		for(CharNote cn : strokes){
 			
 			Note N = cn.getNote();
-			if(cn.getCharacter() != '*')
-				this.instrumentScreen.reflectNote(cn.getCharacter());
+			
 			try {
 				this.sounder.playNote(N,N.getLength());
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			
-			
-			
 		}
 	}
 

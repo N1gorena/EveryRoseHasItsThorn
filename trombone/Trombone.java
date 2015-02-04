@@ -49,9 +49,9 @@ public class Trombone {
 
 	}
 	
-	public void playNote(Note n, double length) throws InterruptedException{
+	public void playNote(Note n, long length) throws InterruptedException{
 		this.playNote(n);
-		Thread.sleep((long) length);
+		Thread.sleep( length);
 		this.endNote(n);
 
 	}

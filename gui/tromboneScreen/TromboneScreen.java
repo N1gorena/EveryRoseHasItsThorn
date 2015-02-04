@@ -153,6 +153,7 @@ public class TromboneScreen extends JPanel implements KeyListener,ActionListener
 			this.Keyano.requestFocus();
 		}
 		else if(arg0.getSource() == this.playButton){
+			this.reflectNote('a');
 			this.Keyano.requestFocus();
 			this.playLastStroke();
 			
