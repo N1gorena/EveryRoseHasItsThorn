@@ -42,10 +42,17 @@ public class Trombone {
 		return;
 	}
 	
-	public void playNote(int midiNoteNumber, int volume, int length) throws InterruptedException{
+	public void playNote(int midiNoteNumber, int volume, double length) throws InterruptedException{
 		T_bone.noteOn(midiNoteNumber, volume);
-		Thread.sleep(length);
-		T_bone.allNotesOff();
+		Thread.sleep((long) length);
+		T_bone.noteOff(midiNoteNumber);
+
+	}
+	
+	public void playNote(Note n, double length) throws InterruptedException{
+		this.playNote(n);
+		Thread.sleep((long) length);
+		this.endNote(n);
 
 	}
 	

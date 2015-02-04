@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 public class Controller extends JPanel {
 	private TromboneScreen tromboneScreen = null;
 	private VolumeController volumeControls = null;
+	private MixController mixControls = null;
 	
 	public Controller(TromboneScreen tromboneScreen, Ivory keys) {
 		// TODO Auto-generated constructor stub
@@ -24,8 +25,9 @@ public class Controller extends JPanel {
 		
 		this.add(volumeControls);
 		
-		//JPanel controlButtons = new JPanel();
+		this.mixControls = new MixController(this);
 		
+		this.add(this.mixControls);
 		
 		
 	}

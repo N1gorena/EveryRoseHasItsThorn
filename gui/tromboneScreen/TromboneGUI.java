@@ -1618,6 +1618,7 @@ public class TromboneGUI extends GLCanvas implements GLEventListener {
 
 	public void setOffset(double offSet){
 		this.offSet = offSet;
+		System.out.println(this.offSet);
 	}
 
 	public static double getSlideNoteOffset(char c) {

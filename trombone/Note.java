@@ -11,7 +11,7 @@ public class Note {
 	private int midiNumber;
 	
 	private int volume;
-	private int length;
+	private Long length;
 	
 	private static final Map<Character, Integer> noteMod = Collections.unmodifiableMap(
 				new HashMap<Character, Integer>() {/**
@@ -31,7 +31,7 @@ public class Note {
 	
 	//VARS ^
 	//FUNCTS\/
-	public Note(String Note , int length, int volume){
+	public Note(String Note , Long length, int volume){
 		this.octave = Integer.parseInt(Note.substring(1)) + 1;
 		
 		this.volume = volume;
@@ -50,7 +50,13 @@ public class Note {
 
 	}
 	
-	public Note(int midiNoteNumber, int length, int volume){
+	public Note(Note n){
+		this.length = n.getLength();
+		this.midiNumber = n.MIDINoteNumber();
+		this.volume = n.volume;
+	}
+	
+	public Note(int midiNoteNumber, Long length, int volume){
 		this.midiNumber = midiNoteNumber;
 		this.volume = volume;
 		this.length = length;
@@ -63,8 +69,11 @@ public class Note {
 	public int getVolume(){
 		return this.volume;
 	}
-	public int getLength(){
+	public long getLength(){
 		return this.length;
+	}
+	public void setLength(Long newLength){
+		this.length = newLength;
 	}
 
 	public void setVolume(int volume2) {

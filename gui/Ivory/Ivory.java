@@ -3,6 +3,7 @@ package gui.Ivory;
 import gui.MainFrame;
 import gui.tromboneScreen.TromboneGUI;
 import gui.tromboneScreen.TromboneScreen;
+import gui.tromboneScreen.TromboneScreen.CharNote;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -64,28 +65,29 @@ public class Ivory extends JPanel{
 	public static final Map<Character,Note> whiteBones; 
 	static{
 		whiteBones = new HashMap<Character,Note>();
+		whiteBones.put('*', new Note(0,(long)0,0)) ;
 		
-		whiteBones.put('q', new Note("A3", 0, 0));
-		whiteBones.put('w', new Note("B3", 0, 0));
-		whiteBones.put('e', new Note("C3", 0, 0));
-		whiteBones.put('r', new Note("D3", 0, 0));
-		whiteBones.put('t', new Note("E3", 0, 0));
-		whiteBones.put('y', new Note("F3", 0, 0));
-		whiteBones.put('u', new Note("G3", 0, 0));
-		whiteBones.put('a', new Note("A4", 0, 0));
-		whiteBones.put('s', new Note("B4", 0, 0));
-		whiteBones.put('d', new Note("C4", 0, 0));
-		whiteBones.put('f', new Note("D4", 0, 0));
-		whiteBones.put('g', new Note("E4", 0, 0));
-		whiteBones.put('h', new Note("F4", 0, 0));
-		whiteBones.put('j', new Note("G4", 0, 0));
-		whiteBones.put('z', new Note("A5", 0, 0));
-		whiteBones.put('x', new Note("B5", 0, 0));
-		whiteBones.put('c', new Note("C5", 0, 0));
-		whiteBones.put('v', new Note("D5", 0, 0));
-		whiteBones.put('b', new Note("E5", 0, 0));
-		whiteBones.put('n', new Note("F5", 0, 0));
-		whiteBones.put('m', new Note("G5", 0, 0));
+		whiteBones.put('q', new Note("A3", (long) 0, 0));
+		whiteBones.put('w', new Note("B3", (long) 0, 0));
+		whiteBones.put('e', new Note("C3", (long) 0, 0));
+		whiteBones.put('r', new Note("D3", (long) 0, 0));
+		whiteBones.put('t', new Note("E3", (long) 0, 0));
+		whiteBones.put('y', new Note("F3", (long) 0, 0));
+		whiteBones.put('u', new Note("G3", (long) 0, 0));
+		whiteBones.put('a', new Note("A4", (long) 0, 0));
+		whiteBones.put('s', new Note("B4", (long) 0, 0));
+		whiteBones.put('d', new Note("C4", (long) 0, 0));
+		whiteBones.put('f', new Note("D4", (long) 0, 0));
+		whiteBones.put('g', new Note("E4", (long) 0, 0));
+		whiteBones.put('h', new Note("F4", (long) 0, 0));
+		whiteBones.put('j', new Note("G4", (long) 0, 0));
+		whiteBones.put('z', new Note("A5", (long) 0, 0));
+		whiteBones.put('x', new Note("B5", (long) 0, 0));
+		whiteBones.put('c', new Note("C5", (long) 0, 0));
+		whiteBones.put('v', new Note("D5", (long) 0, 0));
+		whiteBones.put('b', new Note("E5", (long) 0, 0));
+		whiteBones.put('n', new Note("F5", (long) 0, 0));
+		whiteBones.put('m', new Note("G5", (long) 0, 0));
 		
 	}
 	
@@ -223,7 +225,7 @@ public class Ivory extends JPanel{
 		// TODO Auto-generated method stub
 		char keyPressed = e.getKeyChar();
 		
-		instrumentScreen.reflectNote(e.getKeyChar());
+		instrumentScreen.reflectNote(keyPressed);
 		
 		
 		if(this.notesOn.containsKey(keyPressed)){
@@ -295,6 +297,25 @@ public class Ivory extends JPanel{
 	
 	public void setVolume(int newVolume){
 		this.volume = newVolume;
+	}
+	
+	public void simulatePlay(Vector<CharNote> strokes){
+		for(CharNote cn : strokes){
+			
+			Note N = cn.getNote();
+			if(cn.getCharacter() != '*')
+				this.instrumentScreen.reflectNote(cn.getCharacter());
+			try {
+				this.sounder.playNote(N,N.getLength());
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+			
+			
+		}
 	}
 
 }

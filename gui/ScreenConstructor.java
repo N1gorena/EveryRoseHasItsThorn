@@ -7,6 +7,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.util.Scanner;
 
+import javax.management.timer.Timer;
 import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.GLProfile;
 import javax.media.opengl.awt.GLCanvas;
@@ -24,7 +25,6 @@ public class ScreenConstructor {
 	 * This is the top-level frame that will hold all GUI panels and frames.
 	 */
 	public static void main(String[] args) {
-	
 		MainFrame mainFrame = new MainFrame();
 		mainFrame.setVisible(true);				//Set visible so program can be seen.
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	//Set default close operation to avoid issues.

@@ -14,7 +14,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.lang.reflect.Array;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Queue;
+import java.util.Vector;
 
+import javax.management.timer.Timer;
 import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.GLProfile;
 import javax.sound.midi.MidiUnavailableException;
@@ -32,7 +39,20 @@ public class TromboneScreen extends JPanel implements KeyListener,ActionListener
 	private JButton decVolButton = null;
 	private int discreteVolChange = 5;
 	private Controller controlsScreen = null;
+	private JButton recordButton = null;
+	private JButton playButton = null;
+	private JButton pauseButton = null;
+	private boolean record = false;
+	private boolean playbackInProgress = false;
+	private Vector<CharNote> strokes = new Vector<CharNote>();
+	private Vector<Integer> timing = new Vector<Integer>();
+	private final Timer metronome = new Timer();
+	private Map<Character,Long> stopWatch = new HashMap<Character,Long>();
+	
+	
 	public TromboneScreen(Container mf){
+		this.metronome.start();
+		
 		this.setBackground(Color.BLUE);
 		this.setLayout(new GridBagLayout());
 		this.setSize(mf.getSize());
@@ -105,7 +125,6 @@ public class TromboneScreen extends JPanel implements KeyListener,ActionListener
 		this.myTromboneGUI.setOffset(offSet);
 		return;
 	}
-
 	
 	public TromboneGUI getTromboneGUI(){
 		return this.myTromboneGUI;
@@ -129,19 +148,82 @@ public class TromboneScreen extends JPanel implements KeyListener,ActionListener
 			this.controlsScreen.volumeChange(newVolume);
 			this.Keyano.requestFocus();
 		}
+		else if(arg0.getSource() == this.recordButton){
+			this.keepStroke();
+			this.Keyano.requestFocus();
+		}
+		else if(arg0.getSource() == this.playButton){
+			this.Keyano.requestFocus();
+			this.playLastStroke();
+			
+			
+		}
+		else if(arg0.getSource() == this.pauseButton){
+			
+		}
+	}
+
+	private void playLastStroke() {
+		this.playbackInProgress = true;
+		this.Keyano.simulatePlay(this.strokes);
+		this.playbackInProgress = false;
+		
+		
+	}
+
+	private void keepStroke() {
+		this.recordButton.setBackground(null);
+		if(!this.record){
+			stopWatch.clear();
+			strokes.clear();
+			this.recordButton.setBackground(Color.RED);
+		}
+		this.record = this.record?false:true;
+		
 	}
 
 	@Override
 	public void keyPressed(KeyEvent arg0) {
-		if(Ivory.whiteBones.containsKey(arg0.getKeyChar())){
-			this.Keyano.playKey(arg0);
+		if(!playbackInProgress){
+			char keyPressed = arg0.getKeyChar();
+			if(Ivory.whiteBones.containsKey(keyPressed)){
+				if(this.record){
+					if(this.stopWatch.containsKey('*')){
+						Long currTime = System.currentTimeMillis();
+						Long length = (currTime - this.stopWatch.get('*'));
+						this.stopWatch.remove('*');
+						Note nPlayed = new Note(0, (long) 0 , 0);
+						nPlayed.setLength(length);
+						CharNote newPair = new CharNote('*', nPlayed );
+						this.strokes.add(newPair);
+					}
+					if(!stopWatch.containsKey(keyPressed))
+						this.stopWatch.put( arg0.getKeyChar() , System.currentTimeMillis() );
+				}
+				this.Keyano.playKey(arg0);
+			}
 		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
-		if(Ivory.whiteBones.containsKey(arg0.getKeyChar())){
-			this.Keyano.releaseKey(arg0);
+		if(!playbackInProgress){
+			char keyReleased = arg0.getKeyChar();
+			if(Ivory.whiteBones.containsKey(keyReleased)){
+				if(this.record){
+					Long currTime = System.currentTimeMillis();
+					Long length = (currTime - this.stopWatch.get(keyReleased));
+					this.stopWatch.remove(keyReleased);
+					Note nPlayed = new Note(this.Keyano.whiteBones.get(keyReleased));
+					nPlayed.setLength(length);
+					CharNote newPair =  new CharNote(keyReleased, nPlayed);
+					this.strokes.add(newPair);
+					if(this.stopWatch.isEmpty()){
+						this.stopWatch.put('*', System.currentTimeMillis());
+					}
+				}
+				this.Keyano.releaseKey(arg0);
+			}
 		}
 	}
 
@@ -166,5 +248,28 @@ public class TromboneScreen extends JPanel implements KeyListener,ActionListener
 		this.incVolButton = inc;
 		this.decVolButton = dec;
 	}
-
+	
+	public void setMixButtons(JButton rec,JButton pause,JButton play){
+		this.recordButton = rec;
+		this.pauseButton = pause;
+		this.playButton = play;
+	}
+	
+	public class CharNote{
+		private char character = 0;
+		private Note note = null;
+		
+		public CharNote(char c, Note n){
+			this.note = n;
+			this.character = c;
+		}
+		
+		public char getCharacter(){
+			return this.character;
+		}
+		
+		public Note getNote(){
+			return this.note;
+		}
+	}
 }
