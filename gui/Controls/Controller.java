@@ -14,6 +14,7 @@ public class Controller extends JPanel {
 	private TromboneScreen tromboneScreen = null;
 	private VolumeController volumeControls = null;
 	private MixController mixControls = null;
+	private FileController fileControl = null;
 	
 	public Controller(TromboneScreen tromboneScreen, Ivory keys) {
 		// TODO Auto-generated constructor stub
@@ -29,6 +30,9 @@ public class Controller extends JPanel {
 		
 		this.add(this.mixControls);
 		
+		this.fileControl = new FileController(this);
+		
+		this.add(fileControl);
 		
 	}
 

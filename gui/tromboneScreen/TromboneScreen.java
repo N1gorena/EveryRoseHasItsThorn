@@ -153,6 +153,7 @@ public class TromboneScreen extends JPanel implements KeyListener,ActionListener
 			this.Keyano.requestFocus();
 		}
 		else if(arg0.getSource() == this.playButton){
+			//TODO create seperate thread to sim play.
 			this.reflectNote('a');
 			this.Keyano.requestFocus();
 			this.playLastStroke();
@@ -160,6 +161,7 @@ public class TromboneScreen extends JPanel implements KeyListener,ActionListener
 			
 		}
 		else if(arg0.getSource() == this.pauseButton){
+			//TODO Set up pause when the play is finished.
 			
 		}
 	}

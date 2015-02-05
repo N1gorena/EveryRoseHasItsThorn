@@ -22,7 +22,7 @@ public class Test_main {
 		}
 		
 		MidiGate parser = new MidiGate();
-		Vector<Note> noteToPlay = parser.parseMidiFile("saria_song.mid");
+		Vector<Note> noteToPlay = parser.parseMidiFile("midiFiles/saria_song.mid");
 		
 		for(Note n : noteToPlay){
 			try {

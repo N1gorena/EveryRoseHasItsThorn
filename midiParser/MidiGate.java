@@ -29,7 +29,7 @@ public class MidiGate {
 		
 		for( jm.music.data.Note n : notes){
 			
-			Note newNote = new Note(n.getPitch(), (int)(n.getDuration() * beatInMS) , n.getDynamic());
+			Note newNote = new Note(n.getPitch(), (long)(n.getDuration() * beatInMS) , n.getDynamic());
 			trumpNotes.add(newNote);
 			
 		}

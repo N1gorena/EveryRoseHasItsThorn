@@ -35,6 +35,8 @@ public class Trombone {
 	public void playNote(Note n) throws InterruptedException{
 		//TODO play Note
 		T_bone.noteOn(n.MIDINoteNumber(), n.getVolume());
+		Thread.sleep(n.getLength());
+		T_bone.noteOff(n.MIDINoteNumber(), n.getVolume());
 		return;
 	}
 	public void endNote(Note n){
